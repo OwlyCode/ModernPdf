@@ -33,4 +33,14 @@ class DocumentCatalog extends Object
     {
         return $this->baseType['Pages'];
     }
+
+    // @todo
+    //PageLabels
+    //Names
+    //Dests
+    //ViewerPreferences
+    //PageLayout
+    //PageMode
+    //Outlines
+    //Metadata
 }

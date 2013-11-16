@@ -11,28 +11,17 @@
 
 namespace ModernPdf\View\Object;
 
-class StreamRepresentation
+class StreamRepresentation extends ObjectRepresentation
 {
-    protected $object;
-
-    public function __construct(\ModernPdf\Model\Object\Stream $object)
-    {
-        $this->object = $object;
-    }
-
     public function render()
     {
         $objectNumber = $this->object->getObjectNumber();
         $generationNumber = $this->object->getGenerationNumber();
 
         $output  = $objectNumber." ".$generationNumber." obj\n";
-        $output .="<< >>\n";
+        $output .= $this->object->getBaseType()."\n";
         $output .="stream\n";
-        $output .="1. 0. 0. 1. 50. 700. cm\n";
-        $output .="BT\n";
-        $output .="/F0 36. Tf\n";
-        $output .="(Hello, World, this is so cool !) Tj\n";
-        $output .="ET\n";
+        $output .= $this->object->getRaw()."\n";
         $output .="endstream\n";
         $output .="endobj\n";
 

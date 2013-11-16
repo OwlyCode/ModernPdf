@@ -16,6 +16,9 @@ class File
 {
     protected $version;
     protected $objects;
+    protected $trailerDictionary;
+    protected $documentCatalog;
+    protected $documentInformation;
 
     public function __construct($version = "1.7")
     {
@@ -36,5 +39,36 @@ class File
     public function getObjects()
     {
         return $this->objects;
+    }
+
+    public function setDocumentCatalog(\ModernPdf\Model\Object\DocumentCatalog $catalog)
+    {
+        $this->documentCatalog = $catalog;
+    }
+
+    public function setDocumentInformation(\ModernPdf\Model\Object\DocumentInformation $information)
+    {
+        $this->documentInformation = $information;
+    }
+
+    public function getTrailerDictionary()
+    {
+        return $this->trailerDictionary;
+    }
+
+    public function prepare()
+    {
+        if (!$this->documentCatalog) {
+            throw new LogicException('The document has no document catalog.');
+        }
+
+        $reference = new Type\PdfIndirectReference($this->documentCatalog);
+
+        // The cross reference table is X objects + 1 special entry long.
+        $this->trailerDictionary = new Object\TrailerDictionary($reference, count($this->objects) + 1);
+        if ($this->documentInformation) {
+            $reference = new Type\PdfIndirectReference($this->documentInformation);
+            $this->trailerDictionary->setInfo($reference);
+        }
     }
 }

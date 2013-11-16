@@ -11,7 +11,7 @@
 
 namespace ModernPdf\View\Object;
 
-class StandardRepresentation
+class ObjectRepresentation
 {
     protected $object;
 

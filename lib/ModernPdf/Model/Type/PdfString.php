@@ -9,7 +9,7 @@
 
 namespace ModernPdf\Model\Type;
 
-class PdfName
+class PdfString
 {
     protected $value;
 
@@ -20,6 +20,6 @@ class PdfName
 
     public function __toString()
     {
-        return $this->value;
+        return '('.$this->value.')';
     }
 }

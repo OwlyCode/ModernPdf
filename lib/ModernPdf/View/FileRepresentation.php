@@ -40,7 +40,7 @@ class FileRepresentation
                     $outputer = new Object\StreamRepresentation($object);
                     break;
                 default:
-                    $outputer = new Object\StandardRepresentation($object);
+                    $outputer = new Object\ObjectRepresentation($object);
             }
             $body[] = $outputer->render();
         }
@@ -52,10 +52,7 @@ class FileRepresentation
 
         // Trailer
         $trailer  = 'trailer'."\n";
-        $trailer .= '<<'."\n";
-        $trailer .= '/Root 5 0 R'."\n";
-        $trailer .= '/Size 6'."\n";
-        $trailer .= '>>'."\n";
+        $trailer .= $this->file->getTrailerDictionary();
         $trailer .= 'startxref'."\n";
         $trailer .= strlen($crossReferenceTable.$trailer)."\n";
         $trailer .= '%%EOF';

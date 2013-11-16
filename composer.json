@@ -1,6 +1,12 @@
 {
     "name": "OwlyCode/ModernPdf",
     "type": "library",
+    "authors": [
+        {
+            "name": "Tristan Maindron",
+            "email": "tmaindron@gmail.com"
+        }
+    ],
     "description": "The PHP 5.4, PSR Compliant, Pdf Generator",
     "keywords": ["pdf"],
     "homepage": "http://github.com/OwlyCode/ModernPdf",

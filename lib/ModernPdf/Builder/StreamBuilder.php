@@ -1,0 +1,63 @@
+<?php
+/**
+ * Resources used :
+ * http://www.websupergoo.com/helppdfnet/source/4-examples/17-advancedgraphics.htm
+ *
+ * @category Control
+ * @package  ModernPdf
+ * @author   Tristan Maindron <contact@owly-code.com>
+ * @license  http://opensource.org/licenses/MIT MIT
+ * @link     http://github.com/OwlyCode/ModernPdf
+ */
+
+namespace ModernPdf\Builder;
+
+class StreamBuilder
+{
+    protected $stream;
+    protected $path;
+    protected $state;
+    protected $text;
+
+
+    // http://www.verypdf.com/document/pdf-format-reference/pg_0402.htm
+    const RENDERING_MODE_FILL = 0;
+    const RENDERING_MODE_STROKE = 1;
+    const RENDERING_MODE_FILL_AND_STROKE = 2;
+    const RENDERING_MODE_INVISIBLE = 3;
+    const RENDERING_MODE_FILL_AND_CLIP = 4;
+    const RENDERING_MODE_STROKE_AND_CLIP = 5;
+    const RENDERING_MODE_FILL_AND_STROKE_AND_CLIP = 6;
+    const RENDERING_MODE_CLIP = 7;
+
+    const LINE_CAP_BUTT = 0; // Butt caps. Squared off at the end of the line.
+    const LINE_CAP_ROUND = 1; // Round caps. Semicircles attached at the end of each line.
+    const LINE_CAP_PROJECTED = 2; // Projecting square caps. Projects at end of line for half the width of the line, and is then squared off.
+
+    const LINE_JOIN_MITER = 0; // The outer edges for the two segments are extended until they meet.
+    const LINE_JOIN_ROUND = 1; // A pie slice is added to the junction of the two segments to produce a rounded corner.
+    const LINE_JOIN_BEVEL = 2; // The two segments are finished with butt caps and any notch between the two is filled in.
+
+    public function __construct(&$stream)
+    {
+        $this->stream = $stream;
+        $this->path = new StreamWriter\Path($stream);
+        $this->state = new StreamWriter\State($stream);
+        $this->text = new StreamWriter\Text($stream);
+    }
+
+    public function getPathWriter()
+    {
+        return $this->path;
+    }
+
+    public function getTextWriter()
+    {
+        return $this->text;
+    }
+
+    public function getStateWriter()
+    {
+        return $this->state;
+    }
+}

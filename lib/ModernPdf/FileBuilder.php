@@ -12,9 +12,9 @@
 namespace ModernPdf;
 
 /**
- * The Builder class, responsible of building the pdf tree.
+ * The FileBuilder class, responsible of building the pdf tree.
  */
-class Builder
+class FileBuilder
 {
     protected $file;
 

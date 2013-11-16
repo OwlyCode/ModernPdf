@@ -42,6 +42,19 @@ class Page extends Object
         return $this->baseType['Resources'] = $resource;
     }
 
+    public function getRotate()
+    {
+        return $this->baseType['Rotate'];
+    }
+
+    public function setRotate($rotate)
+    {
+        if ($rotate % 90 !== 0) {
+            throw new InvalidArgumentException('Page rotate must be a multiple of 90.');
+        }
+        return $this->baseType['Rotate'] = $rotate;
+    }
+
     public function setMediabox(\ModernPdf\Model\Type\PdfArray $mediaBox)
     {
         $this->baseType['MediaBox'] = $mediaBox;
