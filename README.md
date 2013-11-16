@@ -8,9 +8,9 @@ Still in early development. More to come in the future ...
 Todo before it's usable :
 -------------------------
 
-- [] Proper low-level stream handling.
-- [] FileRepresentation refactor.
-- [] Ensure the generated PDF is valid
-- [] Tests
-- [] Documentation
-- [] High level APIs.
+- [ ] Proper low-level stream handling.
+- [ ] FileRepresentation refactor.
+- [ ] Ensure the generated PDF is valid
+- [ ] Tests
+- [ ] Documentation
+- [ ] High level APIs.
