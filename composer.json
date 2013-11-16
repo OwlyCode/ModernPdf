@@ -1,0 +1,16 @@
+{
+    "name": "OwlyCode/ModernPdf",
+    "type": "library",
+    "description": "The PHP 5.4, PSR Compliant, Pdf Generator",
+    "keywords": ["pdf"],
+    "homepage": "http://github.com/OwlyCode/ModernPdf",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0",
+        "psr/log": "~1.0"
+    },
+    "autoload": {
+        "psr-0": { "ModernPdf\\": "lib/" }
+    },
+    "minimum-stability": "dev"
+}
