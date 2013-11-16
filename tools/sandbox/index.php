@@ -15,25 +15,28 @@ $loader = require $loaderPath;
 
 use \ModernPdf\Builder;
 use \ModernPdf\Outputer;
+use \ModernPdf\Model\Object   as Object;
+use \ModernPdf\Model\Type     as Type;
+use \ModernPdf\Model\Resource as Resource;
 
 $builder  = new Builder();
 
 $file = $builder->getFile();
 
-$pagetree = new \ModernPdf\Model\Object\PageTree(1);
-$page = new \ModernPdf\Model\Object\Page(2);
-$pagetree->addKid(new \ModernPdf\Model\Type\PdfIndirectReference($page));
+$pagetree = new Object\PageTree(1);
+$page = new Object\Page(2);
+$pagetree->addKid(new Type\PdfIndirectReference($page));
 
-$resource = new \ModernPdf\Model\Object\Resource(3);
-$resource->addFont("F0", new \ModernPdf\Model\Resource\Font\Times());
+$resource = new Object\Resource(3);
+$resource->addFont("F0", new Resource\Font\Times());
 
-$page->setResource(new \ModernPdf\Model\Type\PdfIndirectReference($resource));
+$page->setResource(new Type\PdfIndirectReference($resource));
 
-$content = new \ModernPdf\Model\Object\Stream(4);
-$page->addContent(new \ModernPdf\Model\Type\PdfIndirectReference($content));
+$content = new Object\Stream(4);
+$page->addContent(new Type\PdfIndirectReference($content));
 
-$catalog = new \ModernPdf\Model\Object\DocumentCatalog(5);
-$catalog->setPageTree(new \ModernPdf\Model\Type\PdfIndirectReference($pagetree));
+$catalog = new Object\DocumentCatalog(5);
+$catalog->setPageTree(new Type\PdfIndirectReference($pagetree));
 
 $file->addObject($pagetree);
 $file->addObject($page);
