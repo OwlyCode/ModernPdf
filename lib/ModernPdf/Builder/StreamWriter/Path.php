@@ -12,6 +12,8 @@
 
 namespace ModernPdf\Builder\StreamWriter;
 
+use \ModernPdf\Model\Type\PdfName;
+
 class Path
 {
     protected $stream;
@@ -60,6 +62,11 @@ class Path
     {
         $this->stream->push($cx.' '.$cy.' '.$cx2.' '.$cy2.' '.$x.' '.$y.' c');
         return $this;
+    }
+
+    public function image(PdfName $image)
+    {
+        $this->stream->push($image . ' Do');
     }
 
     /**

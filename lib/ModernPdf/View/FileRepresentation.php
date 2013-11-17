@@ -27,8 +27,8 @@ class FileRepresentation
     public function render()
     {
         // Header
-        $header  = '%PDF-' . $this->file->getVersion()."\n";
-        $header .= '%âãÏÓ'."\n"; // Characters codes over 127
+        $header  = '%PDF-' . $this->file->getVersion()."\r\n";
+        $header .= '%âãÏÓ'."\r\n"; // Characters codes over 127
 
         $body = array();
 
@@ -37,6 +37,9 @@ class FileRepresentation
             $outputer = null;
             switch ($object->getType()) {
                 case "Stream":
+                    $outputer = new Object\StreamRepresentation($object);
+                    break;
+                case "Image":
                     $outputer = new Object\StreamRepresentation($object);
                     break;
                 default:
@@ -51,10 +54,10 @@ class FileRepresentation
         $crossReferenceTable = $this->crossReferenceGenerator->generate($body, $byteOffset);
 
         // Trailer
-        $trailer  = 'trailer'."\n";
+        $trailer  = 'trailer'."\r\n";
         $trailer .= $this->file->getTrailerDictionary();
-        $trailer .= 'startxref'."\n";
-        $trailer .= strlen($crossReferenceTable.$trailer)."\n";
+        $trailer .= 'startxref'."\r\n";
+        $trailer .= strlen($header.implode('', $body))."\r\n";
         $trailer .= '%%EOF';
 
         return $header.implode('', $body).$crossReferenceTable.$trailer;

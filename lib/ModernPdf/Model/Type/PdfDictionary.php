@@ -45,6 +45,6 @@ class PdfDictionary implements \ArrayAccess
             $strings []= '/'.$key.' '.$value;
         }
 
-        return '<<'."\n".implode("\n", $strings)."\n".'>>';
+        return '<<'."\r\n".implode("\r\n", $strings)."\r\n".'>>';
     }
 }

@@ -13,6 +13,7 @@
     "license": "MIT",
     "require": {
         "php": ">=5.4.0",
+        "ext-gd": "*",
         "psr/log": "~1.0"
     },
     "autoload": {

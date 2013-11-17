@@ -17,6 +17,7 @@ class Resource extends Object
     {
         $this->baseType = new \ModernPdf\Model\Type\PdfDictionary();
         $this->baseType['Font'] = new \ModernPdf\Model\Type\PdfDictionary();
+        $this->baseType['XObject'] = new \ModernPdf\Model\Type\PdfDictionary();
         parent::__construct($objectNumber, $generationNumber);
     }
 
@@ -28,5 +29,10 @@ class Resource extends Object
     public function addFont($name, \ModernPdf\Model\Type\PdfDictionary $font)
     {
         $this->baseType['Font'][$name] = $font;
+    }
+
+    public function addImage($name, \ModernPdf\Model\Type\PdfIndirectReference $image)
+    {
+        $this->baseType['XObject'][$name] = $image;
     }
 }

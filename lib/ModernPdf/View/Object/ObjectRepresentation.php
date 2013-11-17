@@ -25,9 +25,9 @@ class ObjectRepresentation
         $objectNumber = $this->object->getObjectNumber();
         $generationNumber = $this->object->getGenerationNumber();
 
-        $output  = $objectNumber." ".$generationNumber." obj\n";
-        $output .= $this->object->getBaseType()."\n";
-        $output .="endobj\n";
+        $output  = $objectNumber." ".$generationNumber." obj\r\n";
+        $output .= $this->object->getBaseType()."\r\n";
+        $output .="endobj\r\n";
 
         return $output;
     }

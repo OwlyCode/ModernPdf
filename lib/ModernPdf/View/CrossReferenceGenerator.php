@@ -14,17 +14,17 @@ class CrossReferenceGenerator
 {
     public function __construct()
     {
-        
+
     }
 
     public function generate($objects, $byteOffset = 0)
     {
         $crossReferenceTable  = "xref\n";
-        $crossReferenceTable .= "0 ".(count($objects)+1)."\n";
-        $crossReferenceTable .= "0000000000 65535 f\n";
+        $crossReferenceTable .= "0 ".(count($objects)+1)."\r\n";
+        $crossReferenceTable .= "0000000000 65535 f\r\n";
 
         foreach ($objects as $object) {
-            $crossReferenceTable .= sprintf('%010s', $byteOffset)." 00000 n\n";
+            $crossReferenceTable .= sprintf('%010s', $byteOffset)." 00000 n\r\n";
             $byteOffset += strlen($object);
         }
 

@@ -9,34 +9,19 @@
 
 namespace ModernPdf\Model\Object;
 
-class Stream extends Object
+class XObject extends Object
 {
-    protected $data = array();
+    protected $baseType;
 
     public function __construct($objectNumber, $generationNumber = 0)
     {
         $this->baseType = new \ModernPdf\Model\Type\PdfDictionary();
+        $this->baseType['Type'] = new \ModernPdf\Model\Type\PdfName('XObject');
         parent::__construct($objectNumber, $generationNumber);
-    }
-
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    public function getRaw()
-    {
-        return implode("\r\n", $this->data);
     }
 
     public function getType()
     {
-        return "Stream";
-    }
-
-    public function push($data)
-    {
-        $this->data[] = $data;
-        $this->baseType['Length'] = strlen($this->getRaw());
+        return "XObject";
     }
 }

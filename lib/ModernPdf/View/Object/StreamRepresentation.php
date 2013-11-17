@@ -18,12 +18,12 @@ class StreamRepresentation extends ObjectRepresentation
         $objectNumber = $this->object->getObjectNumber();
         $generationNumber = $this->object->getGenerationNumber();
 
-        $output  = $objectNumber." ".$generationNumber." obj\n";
-        $output .= $this->object->getBaseType()."\n";
-        $output .="stream\n";
-        $output .= $this->object->getRaw()."\n";
-        $output .="endstream\n";
-        $output .="endobj\n";
+        $output  = $objectNumber." ".$generationNumber." obj\r\n";
+        $output .= $this->object->getBaseType()."\r\n";
+        $output .="stream\r\n";
+        $output .= $this->object->getRaw()."\r\n";
+        $output .="endstream\r\n";
+        $output .="endobj\r\n";
 
         return $output;
     }
