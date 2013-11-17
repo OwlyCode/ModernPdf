@@ -3,7 +3,7 @@
  * Resources used :
  * http://www.websupergoo.com/helppdfnet/source/4-examples/17-advancedgraphics.htm
  *
- * @category Control
+ * @category Builder
  * @package  ModernPdf\Builder\StreamWriter
  * @author   Tristan Maindron <contact@owly-code.com>
  * @license  http://opensource.org/licenses/MIT MIT

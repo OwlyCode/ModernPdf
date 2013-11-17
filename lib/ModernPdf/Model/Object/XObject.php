@@ -9,10 +9,14 @@
 
 namespace ModernPdf\Model\Object;
 
-class XObject extends Object
+/**
+ * Represents a simple XObject with no behavior.
+ */
+abstract class XObject extends Object
 {
-    protected $baseType;
-
+    /**
+     * @see Object::__construct()
+     */
     public function __construct($objectNumber, $generationNumber = 0)
     {
         $this->baseType = new \ModernPdf\Model\Type\PdfDictionary();
@@ -20,6 +24,9 @@ class XObject extends Object
         parent::__construct($objectNumber, $generationNumber);
     }
 
+    /**
+     * @see Object::getType()
+     */
     public function getType()
     {
         return "XObject";

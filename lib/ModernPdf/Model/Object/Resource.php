@@ -9,29 +9,51 @@
 
 namespace ModernPdf\Model\Object;
 
+use ModernPdf\Model\Resource\Font;
+use ModernPdf\Model\Type;
+
+/**
+ * Represents a resource dictionary.
+ */
 class Resource extends Object
 {
-    protected $baseType;
-
+    /**
+     * @see Object::__construct()
+     */
     public function __construct($objectNumber, $generationNumber = 0)
     {
-        $this->baseType = new \ModernPdf\Model\Type\PdfDictionary();
-        $this->baseType['Font'] = new \ModernPdf\Model\Type\PdfDictionary();
-        $this->baseType['XObject'] = new \ModernPdf\Model\Type\PdfDictionary();
+        $this->baseType = new Type\PdfDictionary();
+        $this->baseType['Font'] = new Type\PdfDictionary();
+        $this->baseType['XObject'] = new Type\PdfDictionary();
         parent::__construct($objectNumber, $generationNumber);
     }
 
+    /**
+     * @see Object::getType()
+     */
     public function getType()
     {
         return "Resource";
     }
 
-    public function addFont($name, \ModernPdf\Model\Type\PdfDictionary $font)
+    /**
+     * Adds a font to the dictionary.
+     *
+     * @param string    $name The name the font will be identified with.
+     * @param Font\Font $font The font object.
+     */
+    public function addFont($name, Type\PdfDictionary $font)
     {
         $this->baseType['Font'][$name] = $font;
     }
 
-    public function addImage($name, \ModernPdf\Model\Type\PdfIndirectReference $image)
+    /**
+     * Adds an image to the dictionary.
+     *
+     * @param [type]                    $name  The name the image will be identified with.
+     * @param Type\PdfIndirectReference $image The image object indirect reference.
+     */
+    public function addImage($name, Type\PdfIndirectReference $image)
     {
         $this->baseType['XObject'][$name] = $image;
     }

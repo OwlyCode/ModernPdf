@@ -1,6 +1,6 @@
 <?php
 /**
- * This is a sample file to illustrate how it works.
+ * This is a sample file to illustrate how it works at low level.
  *
  * @author   Tristan Maindron <contact@owly-code.com>
  * @license  http://opensource.org/licenses/MIT MIT
@@ -15,6 +15,7 @@ $loader = require $loaderPath;
 
 use \ModernPdf\FileBuilder;
 use \ModernPdf\Builder\StreamBuilder;
+use \ModernPdf\Builder\ImageBuilder;
 use \ModernPdf\Outputer;
 use \ModernPdf\Model\Object   as Object;
 use \ModernPdf\Model\Type     as Type;
@@ -28,14 +29,11 @@ $pagetree = new Object\PageTree(1);
 $page = new Object\Page(2);
 $pagetree->addKid(new Type\PdfIndirectReference($page));
 
+$imageBuilder = new ImageBuilder();
+$imageBuilder->loadFile(__DIR__ . '/modern.jpg');
 
-$fd = fopen(__DIR__ . '/modern.jpg', 'rb');
-$size = filesize(__DIR__ . '/modern.jpg');
-$imageData = fread($fd, $size);
-fclose($fd);
 
-$image = new Resource\Image\Jpeg(7);
-$image->setData($imageData);
+$image = $imageBuilder->build(7);
 
 $resource = new Object\Resource(3);
 $resource->addFont("F0", new Resource\Font\Times());

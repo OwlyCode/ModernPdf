@@ -9,9 +9,17 @@
 
 namespace ModernPdf\Model\Object;
 
+use \ModernPdf\Model\Type;
+
+/**
+ * Represents a single Page.
+ */
 class Page extends Object
 {
 
+    /**
+     * @see Object::__construct()
+     */
     public function __construct($objectNumber, $generationNumber = 0)
     {
         $this->baseType = new \ModernPdf\Model\Type\PdfDictionary();
@@ -22,31 +30,70 @@ class Page extends Object
         parent::__construct($objectNumber, $generationNumber);
     }
 
+    /**
+     * @see Object::getType()
+     */
+    public function getType()
+    {
+        return "Page";
+    }
+
+    /**
+     * Returns the parent PageTree indirect reference.
+     *
+     * @return Type\PdfIndirectReference The parent indirect reference.
+     */
     public function getParent()
     {
         return $this->baseType['Parent'];
     }
 
-    public function setParent(\ModernPdf\Model\Type\PdfIndirectReference $parent)
+    /**
+     * Sets the parent PageTree indirect reference.
+     *
+     * @param Type\PdfIndirectReference $parent The parent indirect reference.
+     */
+    public function setParent(Type\PdfIndirectReference $parent)
     {
         return $this->baseType['Parent'] = $parent;
     }
 
+    /**
+     * Returns the associated Resource indirect reference.
+     *
+     * @return Type\PdfIndirectReference The resource indirect reference.
+     */
     public function getResource()
     {
         return $this->baseType['Resources'];
     }
 
-    public function setResource(\ModernPdf\Model\Type\PdfIndirectReference $resource)
+    /**
+     * Sets the associated Resource indirect reference.
+     *
+     * @param Type\PdfIndirectReference $resource The resource indirect reference.
+     */
+    public function setResource(Type\PdfIndirectReference $resource)
     {
         return $this->baseType['Resources'] = $resource;
     }
 
+    /**
+     * Returns the applied rotation to the page.
+     *
+     * @return integer The rotation applied.
+     */
     public function getRotate()
     {
         return $this->baseType['Rotate'];
     }
 
+    /**
+     * Applies a rotation to the page.
+     *
+     * @param integer $rotate The rotation to apply, in degrees. Must be a multiple of 90.
+     * @throws InvalidArgumentException If $rotate isn't a multiple of 90.
+     */
     public function setRotate($rotate)
     {
         if ($rotate % 90 !== 0) {
@@ -55,28 +102,44 @@ class Page extends Object
         return $this->baseType['Rotate'] = $rotate;
     }
 
-    public function setMediabox(\ModernPdf\Model\Type\PdfArray $mediaBox)
-    {
-        $this->baseType['MediaBox'] = $mediaBox;
-    }
-
-    public function addContent(\ModernPdf\Model\Type\PdfIndirectReference $stream)
-    {
-        $this->baseType['Contents'][] = $stream;
-    }
-
-    public function getContents()
-    {
-        return $this->baseType['Contents'];
-    }
-
+    /**
+     * Returns the PdfArray used as mediabox of the page.
+     *
+     * @return Type\PdfArray The mediabox PdfArray.
+     */
     public function getMediaBox()
     {
         return $this->baseType['MediaBox'];
     }
 
-    public function getType()
+    /**
+     * Sets the mediabox of the page.
+     *
+     * @param Type\PdfArray $mediaBox The mediabox as a PdfArray.
+     */
+    public function setMediabox(Type\PdfArray $mediaBox)
     {
-        return "Page";
+        $this->baseType['MediaBox'] = $mediaBox;
+    }
+
+    /**
+     * Returns the PdfArray containing the indirect references of the contents
+     * of the page.
+     *
+     * @return Type\PdfArray The content indirect reference PdfArray.
+     */
+    public function getContents()
+    {
+        return $this->baseType['Contents'];
+    }
+
+    /**
+     * Adds a content stream to the page via its indirect reference.
+     *
+     * @param Type\PdfIndirectReference $stream The stream indirect reference.
+     */
+    public function addContent(Type\PdfIndirectReference $stream)
+    {
+        $this->baseType['Contents'][] = $stream;
     }
 }

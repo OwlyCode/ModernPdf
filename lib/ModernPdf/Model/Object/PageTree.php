@@ -9,42 +9,70 @@
 
 namespace ModernPdf\Model\Object;
 
+use \ModernPdf\Model\Type;
+
+/**
+ * Represents a PageTree which can hold pages.
+ */
 class PageTree extends Object
 {
-
-    protected $baseType;
-
+    /**
+     * @see Object::__construct()
+     */
     public function __construct($objectNumber, $generationNumber = 0)
     {
-        $this->baseType = new \ModernPdf\Model\Type\PdfDictionary();
-        $this->baseType['Kids'] = new \ModernPdf\Model\Type\PdfArray();
-        $this->baseType['Type'] = new \ModernPdf\Model\Type\PdfName('Pages');
+        $this->baseType = new Type\PdfDictionary();
+        $this->baseType['Kids'] = new Type\PdfArray();
+        $this->baseType['Type'] = new Type\PdfName('Pages');
         parent::__construct($objectNumber, $generationNumber);
     }
 
+    /**
+     * @see Object::getType()
+     */
     public function getType()
     {
         return "PageTree";
     }
 
+    /**
+     * Returns the parent PageTree indirect reference.
+     *
+     * @return Type\PdfIndirectReference The parent indirect reference.
+     */
     public function getParent()
     {
         return $this->baseType['Parent'];
     }
 
-    public function setParent(\ModernPdf\Model\Type\PdfIndirectReference $parent)
+    /**
+     * Sets the parent PageTree indirect reference.
+     *
+     * @param Type\PdfIndirectReference $parent The parent indirect reference.
+     */
+    public function setParent(Type\PdfIndirectReference $parent)
     {
         return $this->baseType['Parent'] = $parent;
     }
 
+    /**
+     * Return the PdfArray containing the indirect references to this PageTree kid pages.
+     *
+     * @return Type\PdfArray The array of indirect references.
+     */
     public function getKids()
     {
         return $this->baseType['Kids'];
     }
 
-    public function addKid(\ModernPdf\Model\Type\PdfIndirectReference $kid)
+    /**
+     * Adds a page indirect reference to the pagetree.
+     *
+     * @param Type\PdfIndirectReference $kid The page indirect reference.
+     */
+    public function addKid(Type\PdfIndirectReference $kid)
     {
-        $parent = new \ModernPdf\Model\Type\PdfIndirectReference($this);
+        $parent = new Type\PdfIndirectReference($this);
         $this->baseType['Kids'][] = $kid;
         $this->baseType['Count'] = count($this->getKids());
         $kid->getObject()->setParent($parent);

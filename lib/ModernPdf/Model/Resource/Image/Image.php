@@ -1,7 +1,7 @@
 <?php
 /**
  * @category Model
- * @package  ModernPdf\Model\Object
+ * @package  ModernPdf\Model\Resource\Image
  * @author   Tristan Maindron <contact@owly-code.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @link     http://github.com/OwlyCode/ModernPdf

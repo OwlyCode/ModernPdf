@@ -9,10 +9,19 @@
 
 namespace ModernPdf\Model\Object;
 
-class TrailerDictionary extends \ModernPdf\Model\Type\PdfDictionary
-{
+use \ModernPdf\Model\Type;
 
-    public function __construct(\ModernPdf\Model\Type\PdfIndirectReference $documentCatalog, $crossReferenceTableSize)
+/**
+ * Represents the document trailer dictionary. It is not an object that needs
+ * to be indentified by an object number and a generation number. It is included
+ * in the trailer of the document.
+ */
+class TrailerDictionary extends Type\PdfDictionary
+{
+    /**
+     * @see Object::__construct()
+     */
+    public function __construct(Type\PdfIndirectReference $documentCatalog, $crossReferenceTableSize)
     {
         parent::__construct(array(
             'Root' => $documentCatalog,
@@ -20,22 +29,45 @@ class TrailerDictionary extends \ModernPdf\Model\Type\PdfDictionary
         ));
     }
 
+    /**
+     * @see Object::getType()
+     */
     public function getType()
     {
         return "TrailerDictionary";
     }
 
-    public function setInfo(\ModernPdf\Model\Type\PdfIndirectReference $documentInformation)
+    /**
+     * Sets the document information indirect reference.
+     *
+     * @param Type\PdfIndirectReference $documentInformation The document information indirect reference.
+     */
+    public function setInfo(Type\PdfIndirectReference $documentInformation)
     {
         $this['Info'] = $documentInformation;
     }
 
+    /**
+     * Gets the document information indirect reference.
+     *
+     * @return Type\PdfIndirectReference The document information indirect reference.
+     */
     public function getInfo()
     {
         return $this['Info'];
     }
 
-    public function setId(\ModernPdf\Model\Type\PdfArray $id)
+    /**
+     * Sets the identifiers for the document.
+     *
+     * An ID Uniquely identifies the file within a work flow. The first string
+     * is decided when the file is first created, the second modified by
+     * workflow systems when they modify the file.
+     *
+     * @param Type\PdfArray $id A two values PdfArray with the ids.
+     * @throws InvalidArgumentException If The PdfArray has more than 2 values.
+     */
+    public function setId(Type\PdfArray $id)
     {
         if (count($id) != 2) {
             throw new InvalidArgumentException('The TrailerDictionary[ID] must be a two strings array.');
@@ -43,6 +75,10 @@ class TrailerDictionary extends \ModernPdf\Model\Type\PdfDictionary
         $this['ID'] = $id;
     }
 
+    /**
+     * Returns the document indentifiers.
+     * @return Type\PdfArray A 2 values PdfArray which holds the identifiers.
+     */
     public function getId()
     {
         return $this['ID'];
