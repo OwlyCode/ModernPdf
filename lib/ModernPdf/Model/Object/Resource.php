@@ -22,10 +22,10 @@ class Resource extends Object
      */
     public function __construct($objectNumber, $generationNumber = 0)
     {
+        parent::__construct($objectNumber, $generationNumber);
         $this->baseType = new Type\PdfDictionary();
         $this->baseType['Font'] = new Type\PdfDictionary();
         $this->baseType['XObject'] = new Type\PdfDictionary();
-        parent::__construct($objectNumber, $generationNumber);
     }
 
     /**
@@ -42,7 +42,7 @@ class Resource extends Object
      * @param string    $name The name the font will be identified with.
      * @param Font\Font $font The font object.
      */
-    public function addFont($name, Type\PdfDictionary $font)
+    public function addFont($name, Type\PdfIndirectReference $font)
     {
         $this->baseType['Font'][$name] = $font;
     }

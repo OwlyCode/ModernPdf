@@ -26,7 +26,7 @@ What's inside :
  * Clipping
  * Image XObjects (Jpeg)
 * Low level text and fonts
- * Type1 fonts
+ * Type1, TrueType fonts
  * Text streams
 
 What's not inside at the moment:
@@ -38,7 +38,7 @@ What's not inside at the moment:
 * Transparency.
 * Shadings and patterns.
 * form XObjects.
-* Type0, MMType1, TrueType, Type3 and CID fonts.
+* Type0, MMType1, Type3 and CID fonts.
 * Document metadata and navigation.
 * Encrypted documents.
 * Image XObjects (Png, tiff, gif, bmp)

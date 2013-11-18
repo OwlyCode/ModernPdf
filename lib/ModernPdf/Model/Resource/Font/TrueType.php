@@ -9,11 +9,11 @@
 
 namespace ModernPdf\Model\Resource\Font;
 
-class TrueType extends Type\PdfDictionary
+class TrueType extends Type1
 {
-    public function __construct($name)
+    public function __construct($name, $objectNumber, $generationNumber = 0)
     {
-        parent::__construct($name);
-        $this['SubType'] = "TrueType";
+        parent::__construct($name, $objectNumber, $generationNumber);
+        $this->baseType['Subtype'] = new \ModernPdf\Model\Type\PdfName("TrueType");
     }
 }

@@ -11,9 +11,9 @@ namespace ModernPdf\Model\Resource\Font;
 
 class MMType1 extends Type\PdfDictionary
 {
-    public function __construct($name)
+    public function __construct($name, $objectNumber, $generationNumber = 0)
     {
-        parent::__construct($name);
-        $this['SubType'] = "MMType1";
+        parent::__construct($name, $objectNumber, $generationNumber);
+        $this->baseType['SubType'] = new \ModernPdf\Model\Type\PdfName("MMType1");
     }
 }

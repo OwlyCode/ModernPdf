@@ -17,6 +17,8 @@ use \ModernPdf\FileBuilder;
 use \ModernPdf\Builder\StreamBuilder;
 use \ModernPdf\Builder\ImageBuilder;
 use \ModernPdf\Builder\IccBuilder;
+use \ModernPdf\Builder\TrueTypeBuilder;
+
 use \ModernPdf\Outputer;
 use \ModernPdf\Model\Object   as Object;
 use \ModernPdf\Model\Type     as Type;
@@ -25,6 +27,16 @@ use \ModernPdf\Model\Resource as Resource;
 $builder  = new FileBuilder();
 
 $file = $builder->getFile();
+
+$trueTypeBuilder = new TrueTypeBuilder();
+$trueTypeBuilder->load('freeMono');
+$fontStream = $trueTypeBuilder->buildFontStream(11);
+$encoding   = $trueTypeBuilder->buildEncoding(12);
+$widths     = $trueTypeBuilder->buildWidths(13);
+$descriptor = $trueTypeBuilder->buildFontDescriptor($fontStream, 14);
+$font       = $trueTypeBuilder->buildFont($descriptor, $encoding, $widths, 15);
+
+
 
 $pagetree = new Object\PageTree(1);
 $page = new Object\Page(2);
@@ -48,7 +60,7 @@ $imageBuilder->loadFile(__DIR__ . '/modern.jpg');
 $image = $imageBuilder->build(7);
 
 $resource = new Object\Resource(3);
-$resource->addFont("F0", new Resource\Font\Times());
+$resource->addFont("F0", new Type\PdfIndirectReference($font));
 $resource->addImage("X2", new Type\PdfIndirectReference($image));
 
 $page->setResource(new Type\PdfIndirectReference($resource));
@@ -111,6 +123,13 @@ $file->addObject($image);
 $file->addObject($metadata);
 $file->addObject($iccProfile);
 $file->addObject($outputIntent);
+
+$file->addObject($fontStream);
+$file->addObject($encoding);
+$file->addObject($widths);
+$file->addObject($descriptor);
+$file->addObject($font);
+
 $file->setDocumentCatalog($catalog);
 $file->setDocumentInformation($infos);
 
