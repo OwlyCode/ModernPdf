@@ -46,8 +46,7 @@ What's not inside at the moment:
 Todo before it's usable :
 -------------------------
 
-* Ensure the generated PDF is valid.
- * Font embedding.
+* Ensure the generated PDF is valid and can be PDF\A compliant.
 * More image support
  * PNG Support.
  * Tiff Support.
