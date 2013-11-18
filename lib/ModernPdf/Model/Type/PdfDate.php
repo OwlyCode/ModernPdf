@@ -18,7 +18,7 @@ class PdfDate
         $this->value = $value;
     }
 
-    public function __toString()
+    protected function getOffset($colon = false)
     {
         $zone = $this->value->getTimezone();
         $offset = $zone->getOffset($this->value);
@@ -29,6 +29,16 @@ class PdfDate
         $hours = $hours < 10 ? '0'.$hours : $hours;
         $minutes = $minutes < 10 ? '0'.$minutes : $minutes;
 
-        return '(D:'.$this->value->format('YmdHis').'+'.$hours.$minutes.')';
+        return '+'.$hours.($colon ? ':' : '').$minutes;
+    }
+
+    public function __toMetadata()
+    {
+        return $this->value->format('Y-m-d\TH:i:s').$this->getOffset(true);
+    }
+
+    public function __toString()
+    {
+        return '(D:'.$this->value->format('YmdHis').$this->getOffset().')';
     }
 }

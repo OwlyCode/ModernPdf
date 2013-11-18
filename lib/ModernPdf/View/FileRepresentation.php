@@ -21,15 +21,27 @@ class FileRepresentation
     public function __construct(\ModernPdf\Model\File $file)
     {
         $this->file = $file;
-        $this->crossReferenceGenerator = new CrossReferenceGenerator();
     }
 
-    public function render()
+    /**
+     * Render the header part of the file.
+     *
+     * @return string The header as a string.
+     */
+    public function renderHeader()
     {
-        // Header
         $header  = '%PDF-' . $this->file->getVersion()."\r\n";
         $header .= '%âãÏÓ'."\r\n"; // Characters codes over 127
+        return $header;
+    }
 
+    /**
+     * Prepare the body to be rendered.
+     *
+     * @return array The body, one object per array line.
+     */
+    public function prepareBody()
+    {
         $body = array();
 
         // Body
@@ -48,18 +60,75 @@ class FileRepresentation
             $body[] = $outputer->render();
         }
 
-        // Cross reference table
+        return $body;
+    }
 
-        $byteOffset = strlen($header);
-        $crossReferenceTable = $this->crossReferenceGenerator->generate($body, $byteOffset);
+    /**
+     * Renders the prepared body.
+     *
+     * @param  array $body The body as an array (one object per line).
+     *
+     * @return string The ready to output body.
+     */
+    public function renderBody($body)
+    {
+        return implode('', $body);
+    }
 
-        // Trailer
+    /**
+     * Renders the cross reference table.
+     *
+     * @param  array   $rawBody    The body as an array. See prepareBody().
+     * @param  integer $byteOffset The offset in bytes of the table. Usualy the header length.
+     *
+     * @return string The cross reference table.
+     */
+    public function renderCrossReferenceTable($rawBody, $byteOffset)
+    {
+        $crossReferenceGenerator = new CrossReferenceGenerator();
+        $crossReferenceTable = $crossReferenceGenerator->generate($rawBody, $byteOffset);
+
+        return $crossReferenceTable;
+    }
+
+    /**
+     * Renders the trailer.
+     *
+     * @param  integer $byteOffset The byte offset for the startxref entry. Usualy the header+body length.
+     *
+     * @return string The trailer.
+     */
+    public function renderTrailer($byteOffset)
+    {
         $trailer  = 'trailer'."\r\n";
         $trailer .= $this->file->getTrailerDictionary();
         $trailer .= 'startxref'."\r\n";
-        $trailer .= strlen($header.implode('', $body))."\r\n";
+        $trailer .= $byteOffset."\r\n";
         $trailer .= '%%EOF';
 
-        return $header.implode('', $body).$crossReferenceTable.$trailer;
+        return $trailer;
+    }
+
+    /**
+     * Renders the whole file.
+     *
+     * @return string The pdf file ready to display.
+     */
+    public function render()
+    {
+        // Header
+        $header  = $this->renderHeader();
+
+        // Body
+        $rawBody = $this->prepareBody(); // The cross reference table needs it.
+        $body = $this->renderBody($rawBody);
+
+        // Cross reference table
+        $crossReferenceTable = $this->renderCrossReferenceTable($rawBody, strlen($header));
+
+        // Trailer
+        $trailer  = $this->renderTrailer(strlen($header.$body));
+
+        return $header.$body.$crossReferenceTable.$trailer;
     }
 }

@@ -16,6 +16,7 @@ $loader = require $loaderPath;
 use \ModernPdf\FileBuilder;
 use \ModernPdf\Builder\StreamBuilder;
 use \ModernPdf\Builder\ImageBuilder;
+use \ModernPdf\Builder\IccBuilder;
 use \ModernPdf\Outputer;
 use \ModernPdf\Model\Object   as Object;
 use \ModernPdf\Model\Type     as Type;
@@ -28,6 +29,17 @@ $file = $builder->getFile();
 $pagetree = new Object\PageTree(1);
 $page = new Object\Page(2);
 $pagetree->addKid(new Type\PdfIndirectReference($page));
+
+$iccBuilder = new IccBuilder();
+$iccBuilder->loadFile(__DIR__ . '/AdobeRGB1998.icc');
+
+$iccProfile = $iccBuilder->build(9);
+
+$outputIntent = new Object\OutputIntent(10);
+$outputIntent->setSubType(new Type\PdfName('GTS_PDFA1'));
+$outputIntent->setOutputConditionIdentifier(new Type\PdfString('sRGB v4'));
+$outputIntent->setRegistryName(new Type\PdfString('http://www.color.org/'));
+$outputIntent->setDestOutputProfile(new Type\PdfIndirectReference($iccProfile));
 
 $imageBuilder = new ImageBuilder();
 $imageBuilder->loadFile(__DIR__ . '/modern.jpg');
@@ -69,13 +81,25 @@ $streamBuilder->getTextWriter()
 
 $page->addContent(new Type\PdfIndirectReference($content));
 
-$catalog = new Object\DocumentCatalog(5);
-$catalog->setPageTree(new Type\PdfIndirectReference($pagetree));
+$creationDate = new Type\PdfDate(new \DateTime('NOW'));
+
+$metadata = new Object\XmpMetadata(8);
+$metadata->addMetadata('dc:creator', array('ModernPdf'), 'rdf:Seq');
+$metadata->addMetadata('pdfaid:conformance', 'A');
+$metadata->addMetadata('pdfaid:part', '1');
+$metadata->addMetadata('xmp:CreateDate', $creationDate->__toMetadata());
+$metadata->addMetadata('xmp:CreatorTool', 'ModernPdf');
 
 $infos = new Object\DocumentInformation(6);
-$infos->setCreationDate(new Type\PdfDate(new \DateTime('NOW')));
+$infos->setCreationDate($creationDate);
+
 $infos->setCreator(new Type\PdfString('ModernPdf'));
 
+$catalog = new Object\DocumentCatalog(5);
+$catalog->setPageTree(new Type\PdfIndirectReference($pagetree));
+$catalog->setMetadata(new Type\PdfIndirectReference($metadata));
+$catalog->setMarkInfo(true);
+$catalog->addOutputIntent(new Type\PdfIndirectReference($outputIntent));
 
 $file->addObject($pagetree);
 $file->addObject($page);
@@ -84,6 +108,9 @@ $file->addObject($content);
 $file->addObject($catalog);
 $file->addObject($infos);
 $file->addObject($image);
+$file->addObject($metadata);
+$file->addObject($iccProfile);
+$file->addObject($outputIntent);
 $file->setDocumentCatalog($catalog);
 $file->setDocumentInformation($infos);
 

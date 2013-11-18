@@ -66,6 +66,13 @@ class File
 
         // The cross reference table is X objects + 1 special entry long.
         $this->trailerDictionary = new Object\TrailerDictionary($reference, count($this->objects) + 1);
+
+        $id1 = new Type\PdfString(uniqid());
+        $id2 = new Type\PdfString(uniqid());
+        $id = new Type\PdfArray(array($id1, $id2));
+
+        $this->trailerDictionary->setId($id);
+
         if ($this->documentInformation) {
             $reference = new Type\PdfIndirectReference($this->documentInformation);
             $this->trailerDictionary->setInfo($reference);

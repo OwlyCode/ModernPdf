@@ -70,7 +70,7 @@ class TrailerDictionary extends Type\PdfDictionary
     public function setId(Type\PdfArray $id)
     {
         if (count($id) != 2) {
-            throw new InvalidArgumentException('The TrailerDictionary[ID] must be a two strings array.');
+            throw new \InvalidArgumentException('The TrailerDictionary[ID] must be a two strings array. ' . count($id) . ' found.');
         }
         $this['ID'] = $id;
     }

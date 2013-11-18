@@ -65,4 +65,14 @@ class Stream extends Object
         $this->data[] = $data;
         $this->baseType['Length'] = strlen($this->getRaw());
     }
+
+    /**
+     * Sets the filter needed to decode the stream.
+     *
+     * @param Type\PdfName $filter The filter name.
+     */
+    public function setFilter(Type\PdfName $filter)
+    {
+        $this->baseType['Filter'] = $filter;
+    }
 }

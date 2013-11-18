@@ -9,10 +9,11 @@
 
 namespace ModernPdf\Model\Resource\Font;
 
-class Times extends Type1
+class TrueType extends Type\PdfDictionary
 {
-    public function __construct()
+    public function __construct($name)
     {
-        parent::__construct("Times");
+        parent::__construct($name);
+        $this['SubType'] = "TrueType";
     }
 }

@@ -23,7 +23,6 @@ class Page extends Object
     public function __construct($objectNumber, $generationNumber = 0)
     {
         $this->baseType = new \ModernPdf\Model\Type\PdfDictionary();
-        $this->baseType['Kids'] = new \ModernPdf\Model\Type\PdfArray();
         $this->baseType['Contents'] = new \ModernPdf\Model\Type\PdfArray();
         $this->baseType['MediaBox'] = new \ModernPdf\Model\Type\PdfArray(array(0, 0, 612, 792));
         $this->baseType['Type'] = new \ModernPdf\Model\Type\PdfName('Page');

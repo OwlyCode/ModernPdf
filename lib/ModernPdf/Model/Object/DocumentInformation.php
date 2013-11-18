@@ -14,6 +14,9 @@ use ModernPdf\Model\Type\PdfDate;
 
 /**
  * Represents the document informations dictionary.
+ *
+ * @todo Trapped support.
+ *
  */
 class DocumentInformation extends Object
 {

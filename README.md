@@ -19,6 +19,7 @@ What's inside :
  * Document catalog
  * Pages and Page Trees
 * Low level graphics
+ * OutputIntent and ICC Embedding
  * Building and Painting paths (Line, Bézier curve, filled shapes)
  * Colors and color spaces
  * Transformations
@@ -37,7 +38,7 @@ What's not inside at the moment:
 * Transparency.
 * Shadings and patterns.
 * form XObjects.
-* TrueType, Type3 and CID fonts.
+* Type0, MMType1, TrueType, Type3 and CID fonts.
 * Document metadata and navigation.
 * Encrypted documents.
 * Image XObjects (Png, tiff, gif, bmp)
@@ -45,12 +46,12 @@ What's not inside at the moment:
 Todo before it's usable :
 -------------------------
 
-* Refactor FileRepresentation
+* Ensure the generated PDF is valid.
+ * Font embedding.
 * More image support
  * PNG Support.
  * Tiff Support.
  * Gif Support.
-* Ensure the generated PDF is valid.
 * Tests.
 * Documentation.
 * High level API.

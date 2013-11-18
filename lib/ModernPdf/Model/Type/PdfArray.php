@@ -9,7 +9,7 @@
 
 namespace ModernPdf\Model\Type;
 
-class PdfArray implements \ArrayAccess
+class PdfArray implements \ArrayAccess, \Countable
 {
     protected $values;
 
@@ -36,6 +36,11 @@ class PdfArray implements \ArrayAccess
     public function offsetUnset ($offset)
     {
         unset($this->values[$offset]);
+    }
+
+    public function count ()
+    {
+        return count($this->values);
     }
 
     public function __toString()
