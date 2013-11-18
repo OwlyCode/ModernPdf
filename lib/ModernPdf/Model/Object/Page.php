@@ -24,6 +24,7 @@ class Page extends Object
     {
         $this->baseType = new \ModernPdf\Model\Type\PdfDictionary();
         $this->baseType['Contents'] = new \ModernPdf\Model\Type\PdfArray();
+        $this->baseType['Annots'] = new \ModernPdf\Model\Type\PdfArray();
         $this->baseType['MediaBox'] = new \ModernPdf\Model\Type\PdfArray(array(0, 0, 612, 792));
         $this->baseType['Type'] = new \ModernPdf\Model\Type\PdfName('Page');
         parent::__construct($objectNumber, $generationNumber);
@@ -140,5 +141,25 @@ class Page extends Object
     public function addContent(Type\PdfIndirectReference $stream)
     {
         $this->baseType['Contents'][] = $stream;
+    }
+
+    /**
+     * Returns the PdfArray containing the indirect references of annotations.
+     *
+     * @return Type\PdfArray The content indirect reference PdfArray.
+     */
+    public function getAnnots()
+    {
+        return $this->baseType['Annots'];
+    }
+
+    /**
+     * Adds an annotation to the page via its indirect reference.
+     *
+     * @param Type\PdfIndirectReference $stream The annotation indirect reference.
+     */
+    public function addAnnot(Type\PdfIndirectReference $annot)
+    {
+        $this->baseType['Annots'][] = $annot;
     }
 }

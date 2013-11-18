@@ -110,11 +110,30 @@ class DocumentCatalog extends Object
         $this->baseType['OutputIntents'][] = $intent;
     }
 
+    /**
+     * Sets the outlines indirect reference.
+     *
+     * @param Type\PdfIndirectReference $outlines The indirect reference to the outlines.
+     */
+    public function setOutlines(Type\PdfIndirectReference $outlines)
+    {
+        $this->baseType['Outlines'] = $outlines;
+    }
+
+    /**
+     * Returns the outlines indirect reference.
+     *
+     * @return Type\PdfIndirectReference The outlines indirect reference.
+     */
+    public function getOutlines()
+    {
+        return $this->baseType['Outlines'];
+    }
+
     // @todo PageLabels
     // @todo Names
     // @todo Dests
     // @todo ViewerPreferences
     // @todo PageLayout
     // @todo PageMode
-    // @todo Outlines
 }

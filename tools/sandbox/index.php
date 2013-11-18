@@ -98,7 +98,7 @@ $creationDate = new Type\PdfDate(new \DateTime('NOW'));
 $metadata = new Object\XmpMetadata(8);
 $metadata->addMetadata('dc:creator', array('ModernPdf'), 'rdf:Seq');
 $metadata->addMetadata('pdfaid:conformance', 'A');
-$metadata->addMetadata('pdfaid:part', '1');
+$metadata->addMetadata('pdfaid:part', '3');
 $metadata->addMetadata('xmp:CreateDate', $creationDate->__toMetadata());
 $metadata->addMetadata('xmp:CreatorTool', 'ModernPdf');
 
@@ -113,6 +113,26 @@ $catalog->setMetadata(new Type\PdfIndirectReference($metadata));
 $catalog->setMarkInfo(true);
 $catalog->addOutputIntent(new Type\PdfIndirectReference($outputIntent));
 
+$dest = new Type\PdfDestination();
+$dest->setFit(new Type\PdfIndirectReference($page));
+
+$outlineDictionary = new Object\OutlineDictionary(17);
+$outlineDictionary->setTitle(new Type\PdfString("The first page."));
+$outlineDictionary->setCount(0);
+$outlineDictionary->setDest($dest);
+
+$outlines = new Object\Outlines(16);
+$outlines->setFirst(new Type\PdfIndirectReference($outlineDictionary));
+$outlines->setLast(new Type\PdfIndirectReference($outlineDictionary));
+$outlines->setCount(1);
+$outlineDictionary->setParent(new Type\PdfIndirectReference($outlines));
+$catalog->setOutlines(new Type\PdfIndirectReference($outlines));
+
+$textAnnotation = new Object\TextAnnotation(17);
+$textAnnotation->setContents(new Type\PdfString('This is an annotation.'));
+$textAnnotation->setRect(new Type\PdfArray(array(0, 700, 800, 800)));
+$page->addAnnot(new Type\PdfIndirectReference($textAnnotation));
+
 $file->addObject($pagetree);
 $file->addObject($page);
 $file->addObject($resource);
@@ -123,12 +143,14 @@ $file->addObject($image);
 $file->addObject($metadata);
 $file->addObject($iccProfile);
 $file->addObject($outputIntent);
-
 $file->addObject($fontStream);
 $file->addObject($encoding);
 $file->addObject($widths);
 $file->addObject($descriptor);
 $file->addObject($font);
+$file->addObject($outlines);
+$file->addObject($outlineDictionary);
+$file->addObject($textAnnotation);
 
 $file->setDocumentCatalog($catalog);
 $file->setDocumentInformation($infos);

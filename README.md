@@ -10,6 +10,9 @@ is released.
 What's inside :
 ---------------
 
+* PDF\A compliant
+ * PDF\A-1a
+ * PDF\A-1b
 * Low Level file Structure
  * Objects (Strings, Dates, Names, Arrays, Dictionaries, Indirect References)
  * Streams
@@ -28,29 +31,51 @@ What's inside :
 * Low level text and fonts
  * Type1, TrueType fonts
  * Text streams
+* Metadata
+ * DocumentInfo dictionary
+ * XMP metadata stream
+* Outlines
+ * Annotations
+  * Text
+  * Hyperlink
 
 What's not inside at the moment:
 --------------------------------
 
-* Filters.
-* Incremental updates.
-* Linearization.
-* Transparency.
-* Shadings and patterns.
-* form XObjects.
-* Type0, MMType1, Type3 and CID fonts.
-* Document metadata and navigation.
-* Encrypted documents.
-* Image XObjects (Png, tiff, gif, bmp)
+A quick and quite raw list of non implemented features that **shall be implemented**
+in the future days.
+
+* Low level support
+ * Document modification. It **will be** surely **included on the first release**.
+ * Filters
+ * Incremental updates
+ * Linearization
+ * Transparency
+ * Shadings and patterns
+ * form XObjects
+ * Type0, MMType1, Type3 and CID fonts
+ * Annotations
+  * File
+ * Encrypted documents
+ * Image XObjects (Png, tiff, gif, bmp)
+ * DocumentCatalog /Dests entry.
+ * Document's name dictionary
+ * Outlines on DocumentCatalog /Dests entry.
+ * Outlines on Document's name dictionary.
+
+* High level helpers
+ * Document Parser
+ * Page builder (pick a format and orientation, for instance.)
+ * Text editor (Word wrapping, new page handling and styles.)
+ * Table editor (Creating tables, filling cells)
 
 Todo before it's usable :
 -------------------------
 
-* Ensure the generated PDF is valid and can be PDF\A compliant.
-* More image support
- * PNG Support.
- * Tiff Support.
- * Gif Support.
-* Tests.
-* Documentation.
-* High level API.
+* Code cleaning
+ * PdfRectangle type.
+ * Dispatch objects.
+ * Dispatch types and check them in the specification.
+* Tests
+* Documentation
+* High level API
