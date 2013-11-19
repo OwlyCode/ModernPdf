@@ -12,7 +12,7 @@
 
 namespace ModernPdf\Builder\StreamWriter;
 
-use \ModernPdf\Model\Type\PdfName;
+use ModernPdf\Component\ObjectType;
 
 class Path
 {
@@ -64,7 +64,7 @@ class Path
         return $this;
     }
 
-    public function image(PdfName $image)
+    public function image(ObjectType\PdfName $image)
     {
         $this->stream->push($image . ' Do');
     }

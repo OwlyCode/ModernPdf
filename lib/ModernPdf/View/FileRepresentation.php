@@ -18,7 +18,7 @@ class FileRepresentation
 {
     protected $file;
 
-    public function __construct(\ModernPdf\Model\File $file)
+    public function __construct(\ModernPdf\Component\FileStructure\File $file)
     {
         $this->file = $file;
     }
@@ -46,17 +46,7 @@ class FileRepresentation
 
         // Body
         foreach ($this->file->getObjects() as $object) {
-            $outputer = null;
-            switch ($object->getType()) {
-                case "Stream":
-                    $outputer = new Object\StreamRepresentation($object);
-                    break;
-                case "Image":
-                    $outputer = new Object\StreamRepresentation($object);
-                    break;
-                default:
-                    $outputer = new Object\ObjectRepresentation($object);
-            }
+            $outputer = new Object\ObjectRepresentation($object);
             $body[] = $outputer->render();
         }
 

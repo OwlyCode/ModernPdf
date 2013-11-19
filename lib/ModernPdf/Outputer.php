@@ -23,7 +23,7 @@ class Outputer
     {
     }
 
-    public function output(\ModernPdf\Model\File $file)
+    public function output(\ModernPdf\Component\FileStructure\File $file)
     {
         $view = new \ModernPdf\View\FileRepresentation($file);
         return $view->render();

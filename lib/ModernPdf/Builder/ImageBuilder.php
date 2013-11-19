@@ -44,15 +44,15 @@ class ImageBuilder
      * @param integer $objectNumber     The pdf object number
      * @param integer $generationNumber The pdf generation number
      *
-     * @return \ModernPdf\Model\Resource\Image\Image The image resource.
+     * @return \ModernPdf\Component\DocumentStructure\Image\Image The image resource.
      */
-    public function build($objectNumber, $generationNumber = 0)
+    public function build()
     {
         $infos = getimagesizefromstring($this->data);
 
         switch ($infos['mime']) {
             case 'image/jpeg':
-                $image = new \ModernPdf\Model\Resource\Image\Jpeg($objectNumber, $generationNumber);
+                $image = new \ModernPdf\Component\DocumentStructure\Image\Jpeg();
                 break;
             default:
                 throw new LogicException($infos['mime'].' files are not supported.');

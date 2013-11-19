@@ -10,9 +10,10 @@
 namespace ModernPdf\Builder;
 
 use Symfony\Component\Yaml\Yaml;
-use \ModernPdf\Model\Resource\Font;
-use \ModernPdf\Model\Object;
-use \ModernPdf\Model\Type;
+use \ModernPdf\Component\DocumentStructure\Font;
+use \ModernPdf\Component\FileStructure;
+use \ModernPdf\Component\ContentStream;
+use \ModernPdf\Component\ObjectType;
 
 class TrueTypeBuilder
 {
@@ -32,12 +33,12 @@ class TrueTypeBuilder
         $this->config = Yaml::parse($ymlPath);
     }
 
-    public function buildFontDescriptor(Object\FontStream $font, $objectNumber, $generationNumber = 0)
+    public function buildFontDescriptor(FileStructure\Object $font)
     {
-        $descriptor = new Object\FontDescriptor($objectNumber, $generationNumber);
-        $descriptor->setFontName(new Type\PdfName($this->config['name']));
+        $descriptor = new Font\FontDescriptor();
+        $descriptor->setFontName(new ObjectType\PdfName($this->config['name']));
         $descriptor->setFlags($this->config['flags']);
-        $descriptor->setFontBBox(new Type\PdfArray($this->config['font_bbox']));
+        $descriptor->setFontBBox(new ObjectType\PdfArray($this->config['font_bbox']));
         $descriptor->setItalicAngle($this->config['italic_angle']);
         $descriptor->setAscent($this->config['ascent']);
         $descriptor->setDescent($this->config['descent']);
@@ -47,46 +48,44 @@ class TrueTypeBuilder
         //$descriptor->setAvgWidth();
         //$descriptor->setMaxWidth();
         $descriptor->setMissingWidth($this->config['missing_width']);
-        $descriptor->setFontFile2(new Type\PdfIndirectReference($font));
+        $descriptor->setFontFile2(new ObjectType\PdfIndirectReference($font));
 
         return $descriptor;
     }
 
-    public function buildFontStream($objectNumber, $generationNumber = 0)
+    public function buildFontStream()
     {
-        $stream = new Object\FontStream($objectNumber, $generationNumber);
+        $stream = new ContentStream\FontStream();
         $stream->setLength1(strlen($this->data));
         $stream->push($this->data);
 
         return $stream;
     }
 
-    public function buildEncoding($objectNumber, $generationNumber = 0)
+    public function buildEncoding()
     {
-        $encoding = new Object\Encoding($objectNumber, $generationNumber);
-        $encoding->setBaseEncoding(new Type\PdfName($this->config['base_encoding']));
-        $encoding->setDifferences(new Type\PdfArray($this->config['differences']));
+        $encoding = new Font\Encoding();
+        $encoding->setBaseEncoding(new ObjectType\PdfName($this->config['base_encoding']));
+        $encoding->setDifferences(new ObjectType\PdfArray($this->config['differences']));
 
         return $encoding;
     }
 
-    public function buildWidths($objectNumber, $generationNumber = 0)
+    public function buildWidths()
     {
-        $widths = new Object\Widths($objectNumber, $generationNumber);
-        $widths->set($this->config['widths']);
-
+        $widths = new ObjectType\PdfArray($this->config['widths']);
         return $widths;
     }
 
-    public function buildFont(Object\FontDescriptor $fontDescriptor, Object\Encoding $encoding, Object\Widths $widths, $objectNumber, $generationNumber = 0)
+    public function buildFont(FileStructure\Object $fontDescriptor, FileStructure\Object $encoding, FileStructure\Object $widths)
     {
-        $font = new Font\TrueType($this->config['name'], $objectNumber, $generationNumber);
+        $font = new Font\TrueType($this->config['name']);
 
         $font->setFirstChar($this->config['first_char']);
         $font->setLastChar($this->config['last_char']);
-        $font->setWidths(new Type\PdfIndirectReference($widths));
-        $font->setFontDescriptor(new Type\PdfIndirectReference($fontDescriptor));
-        $font->setEncoding(new Type\PdfIndirectReference($encoding));
+        $font->setWidths(new ObjectType\PdfIndirectReference($widths));
+        $font->setFontDescriptor(new ObjectType\PdfIndirectReference($fontDescriptor));
+        $font->setEncoding(new ObjectType\PdfIndirectReference($encoding));
 
         return $font;
     }

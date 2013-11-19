@@ -20,7 +20,7 @@ class FileBuilder
 
     public function __construct()
     {
-        $this->file = new \ModernPdf\Model\File();
+        $this->file = new \ModernPdf\Component\FileStructure\File();
     }
 
     public function getFile()

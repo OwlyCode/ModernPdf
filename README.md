@@ -46,6 +46,7 @@ A quick and quite raw list of non implemented features that **shall be implement
 in the future days.
 
 * Low level support
+ * HexStrings (<> enclosed strings)
  * Document modification. It **will be** surely **included on the first release**.
  * Filters
  * Incremental updates
@@ -73,7 +74,9 @@ Todo before it's usable :
 -------------------------
 
 * Code cleaning
- * PdfRectangle type.
+ * DataStructure/Rectangle.
+ * DataStructure/NameTree.
+ * DataStructure/NumberTree.
  * Dispatch objects.
  * Dispatch types and check them in the specification.
 * Tests

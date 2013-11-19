@@ -15,7 +15,7 @@ class ObjectRepresentation
 {
     protected $object;
 
-    public function __construct(\ModernPdf\Model\Object\Object $object)
+    public function __construct(\ModernPdf\Component\FileStructure\Object $object)
     {
         $this->object = $object;
     }

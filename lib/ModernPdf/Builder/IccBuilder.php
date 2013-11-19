@@ -10,7 +10,7 @@
 namespace ModernPdf\Builder;
 
 /**
- * This class is responsible of loading an ICC file from a path or a file and 
+ * This class is responsible of loading an ICC file from a path or a file and
  * build the associated ICC profile stream, ready to be put in the pdf document.
  */
 class IccBuilder
@@ -46,9 +46,9 @@ class IccBuilder
      *
      * @return \ModernPdf\Model\Resource\ICC\IccProfile The ICC resource.
      */
-    public function build($objectNumber, $generationNumber = 0)
+    public function build()
     {
-        $icc = new \ModernPdf\Model\Resource\ICC\IccProfile($objectNumber, $generationNumber);
+        $icc = new \ModernPdf\Component\ContentStream\IccProfile();
         $icc->push($this->data);
 
         return $icc;

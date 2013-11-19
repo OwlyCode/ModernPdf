@@ -12,7 +12,7 @@
 
 namespace ModernPdf\Builder\StreamWriter;
 
-use \ModernPdf\Model\Type as Type;
+use \ModernPdf\Component\ObjectType as Type;
 
 class Text
 {

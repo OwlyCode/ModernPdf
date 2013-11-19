@@ -13,6 +13,8 @@
 
 namespace ModernPdf\Builder;
 
+use ModernPdf\Component\ObjectType;
+
 /**
  * This class must be binded to a Stream and writes graphics instructions in it.
  */
@@ -43,9 +45,9 @@ class StreamBuilder
     /**
      * Binds a new StreamBuilder to a Stream.
      *
-     * @param \ModernPdf\Model\Object\Stream $stream The stream to bind to.
+     * @param ObjectType\PdfStream $stream The stream to bind to.
      */
-    public function __construct(\ModernPdf\Model\Object\Stream &$stream)
+    public function __construct(ObjectType\PdfStream &$stream)
     {
         $this->stream = $stream;
         $this->path = new StreamWriter\Path($stream);
