@@ -77,8 +77,6 @@ Todo before it's usable :
  * DataStructure/Rectangle.
  * DataStructure/NameTree.
  * DataStructure/NumberTree.
- * Dispatch objects.
- * Dispatch types and check them in the specification.
 * Tests
 * Documentation
 * High level API
