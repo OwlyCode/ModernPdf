@@ -9,7 +9,9 @@
 
 namespace ModernPdf\Component\DocumentStructure\Font;
 
-class MMType1 extends Type\PdfDictionary
+use \ModernPdf\Component\ObjectType;
+
+class MMType1 extends ObjectType\PdfDictionary
 {
     public function __construct($name, $objectNumber, $generationNumber = 0)
     {

@@ -55,7 +55,7 @@ class ImageBuilder
                 $image = new \ModernPdf\Component\DocumentStructure\Image\Jpeg();
                 break;
             default:
-                throw new LogicException($infos['mime'].' files are not supported.');
+                throw new \LogicException($infos['mime'].' files are not supported.');
         }
 
         $image->setData($this->data);

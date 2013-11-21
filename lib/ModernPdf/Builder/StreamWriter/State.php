@@ -12,6 +12,8 @@
 
 namespace ModernPdf\Builder\StreamWriter;
 
+use \ModernPdf\Component\ObjectType;
+
 class State
 {
     protected $stream;
@@ -202,7 +204,7 @@ class State
      * @param Model\Type\PdfArray $pattern The dashing pattern.
      * @param integer             $offset  The initial offset in the pattern.
      */
-    public function setLineDash(Model\Type\PdfArray $pattern, $offset)
+    public function setLineDash(ObjectType\PdfArray $pattern, $offset)
     {
         $this->stream->push($pattern . ' ' . $offset . ' d');
         return $this;

@@ -66,7 +66,7 @@ class FontStream extends ObjectType\PdfStream
      *
      * @param Type\PdfName $subtype The sub type to set.
      */
-    public function setSubtype(Type\PdfName $subtype)
+    public function setSubtype(ObjectType\PdfName $subtype)
     {
         $this->dictionary['Subtype'] = $subtype;
     }
@@ -77,7 +77,7 @@ class FontStream extends ObjectType\PdfStream
      *
      * @param Type\PdfIndirectReference $metadata The indirect reference to the metadata stream.
      */
-    public function setMetadata(Type\PdfIndirectReference $metadata)
+    public function setMetadata(ObjectType\PdfIndirectReference $metadata)
     {
         $this->dictionary['Metadata'] = $metadata;
     }

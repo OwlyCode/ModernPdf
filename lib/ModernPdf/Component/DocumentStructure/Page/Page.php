@@ -85,7 +85,7 @@ class Page extends ObjectType\PdfDictionary
     public function setRotate($rotate)
     {
         if ($rotate % 90 !== 0) {
-            throw new InvalidArgumentException('Page rotate must be a multiple of 90.');
+            throw new \InvalidArgumentException('Page rotate must be a multiple of 90.');
         }
         return $this['Rotate'] = $rotate;
     }

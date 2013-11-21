@@ -45,8 +45,6 @@ class TrueTypeBuilder
         $descriptor->setLeading($this->config['leading']);
         $descriptor->setCapHeight($this->config['cap_height']);
         $descriptor->setStemV($this->config['stem_v']);
-        //$descriptor->setAvgWidth();
-        //$descriptor->setMaxWidth();
         $descriptor->setMissingWidth($this->config['missing_width']);
         $descriptor->setFontFile2(new ObjectType\PdfIndirectReference($font));
 

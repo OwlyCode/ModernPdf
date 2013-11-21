@@ -170,5 +170,4 @@ $file->setDocumentInformation($infos);
 $file->prepare();
 
 $outputer = new Outputer();
-//echo $outputer->output($file);
 file_put_contents("test.pdf", $outputer->output($file));

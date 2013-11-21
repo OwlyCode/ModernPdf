@@ -71,7 +71,7 @@ class PdfStream
      *
      * @param Type\PdfName $filter The filter name.
      */
-    public function setFilter(Type\PdfName $filter)
+    public function setFilter(ObjectType\PdfName $filter)
     {
         $this->dictionary['Filter'] = $filter;
     }

@@ -62,16 +62,3 @@ class XmpMetadata extends ObjectType\PdfStream
         $this->dictionary['Length'] = strlen($this->getRaw());
     }
 }
-
-
-/**
- * <dc:creator>Craig J. Hogan</dc:creator>
- * <dc:title>Cosmology: Ripples of early starlight</dc:title>
- * <dc:identifier>doi:10.1038/445037a</dc:identifier>
- * <dc:source>Nature 445, 37 (2007)</dc:source>
- * <dc:date>2007-01-04</dc:date>
- * <dc:format>application/pdf</dc:format>
- * <dc:publisher>Nature Publishing Group</dc:publisher>
- * <dc:language>en<dc:language>
- * <dc:rights>© 2007 Nature Publishing Group</dc:rights>
- */

@@ -62,7 +62,7 @@ class File
     public function prepare()
     {
         if (!$this->documentCatalog) {
-            throw new LogicException('The document has no document catalog.');
+            throw new \LogicException('The document has no document catalog.');
         }
 
         $reference = new ObjectType\PdfIndirectReference($this->documentCatalog);

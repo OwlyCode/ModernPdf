@@ -9,8 +9,7 @@
 
 namespace ModernPdf\Component\DocumentStructure\Page;
 
-use ModernPdf\Model\Resource\Font;
-use ModernPdf\Model\Type;
+use ModernPdf\Component\ObjectType;
 
 /**
  * Represents a resource dictionary.
@@ -21,8 +20,8 @@ class Resource extends Object
     public function __construct($values = array())
     {
         parent::__construct($values);
-        $this['Font'] = new Type\PdfDictionary();
-        $this['XObject'] = new Type\PdfDictionary();
+        $this['Font'] = new ObjectType\PdfDictionary();
+        $this['XObject'] = new ObjectType\PdfDictionary();
     }
 
     /**
@@ -31,7 +30,7 @@ class Resource extends Object
      * @param string    $name The name the font will be identified with.
      * @param Font\Font $font The font object.
      */
-    public function addFont($name, Type\PdfIndirectReference $font)
+    public function addFont($name, ObjectType\PdfIndirectReference $font)
     {
         $this['Font'][$name] = $font;
     }
@@ -40,9 +39,9 @@ class Resource extends Object
      * Adds an image to the dictionary.
      *
      * @param [type]                    $name  The name the image will be identified with.
-     * @param Type\PdfIndirectReference $image The image object indirect reference.
+     * @param ObjectType\PdfIndirectReference $image The image object indirect reference.
      */
-    public function addImage($name, Type\PdfIndirectReference $image)
+    public function addImage($name, ObjectType\PdfIndirectReference $image)
     {
         $this['XObject'][$name] = $image;
     }

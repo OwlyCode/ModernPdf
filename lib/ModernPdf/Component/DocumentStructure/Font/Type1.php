@@ -47,7 +47,7 @@ class Type1 extends ObjectType\PdfDictionary
         $this['Encoding'] = $encoding; // name or Encoding dictionary.
     }
 
-    public function setToUnicode(Object\Stream $stream)
+    public function setToUnicode(ObjectType\PdfStream $stream)
     {
         $this['ToUnicode'] = $stream;
     }
