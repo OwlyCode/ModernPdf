@@ -1,5 +1,5 @@
 {
-    "name": "OwlyCode/ModernPdf",
+    "name": "owlycode/modern-pdf",
     "type": "library",
     "authors": [
         {
@@ -15,8 +15,8 @@
         "php": ">=5.4.0",
         "ext-gd": "*",
         "psr/log": "~1.0",
-        "easyrdf/easyrdf": "*",
-        "symfony/yaml": "*"
+        "easyrdf/easyrdf": "0.7.2",
+        "symfony/yaml": "v2.3.7"
     },
     "autoload": {
         "psr-0": { "ModernPdf\\": "lib/" }
