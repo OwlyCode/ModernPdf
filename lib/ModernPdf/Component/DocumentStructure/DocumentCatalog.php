@@ -120,11 +120,4 @@ class DocumentCatalog extends ObjectType\PdfDictionary
     {
         return $this['Outlines'];
     }
-
-    // @todo PageLabels
-    // @todo Names
-    // @todo Dests
-    // @todo ViewerPreferences
-    // @todo PageLayout
-    // @todo PageMode
 }

@@ -71,7 +71,7 @@ class PdfStream
      *
      * @param Type\PdfName $filter The filter name.
      */
-    public function setFilter(ObjectType\PdfName $filter)
+    public function setFilter(PdfName $filter)
     {
         $this->dictionary['Filter'] = $filter;
     }
@@ -85,13 +85,4 @@ class PdfStream
 
         return $output;
     }
-
-    /**
-     * @todo
-     * DecodeParms
-     * F
-     * FFilter
-     * FDecodeParms
-     * DL
-     */
 }

@@ -14,7 +14,7 @@ use ModernPdf\Component\ObjectType;
 /**
  * Represents a resource dictionary.
  */
-class Resource extends Object
+class Resource extends ObjectType\PdfDictionary
 {
 
     public function __construct($values = array())

@@ -10,7 +10,6 @@
 namespace ModernPdf\Component\DocumentStructure\Font;
 
 use \ModernPdf\Component\ObjectType;
-use \ModernPdf\Component\FileStructure;
 
 class Encoding extends ObjectType\PdfDictionary
 {

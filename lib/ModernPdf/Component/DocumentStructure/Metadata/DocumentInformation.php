@@ -14,9 +14,6 @@ use ModernPdf\Component\DataStructure;
 
 /**
  * Represents the document informations dictionary.
- *
- * @todo Trapped support.
- *
  */
 class DocumentInformation extends ObjectType\PdfDictionary
 {

@@ -9,7 +9,6 @@
 
 namespace ModernPdf\Component\FileStructure;
 
-use ModernPdf\Component\DocumentStructure;
 use ModernPdf\Component\ObjectType;
 
 /**
