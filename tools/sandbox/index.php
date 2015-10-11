@@ -11,7 +11,7 @@ $loaderPath = __DIR__ . '/../../vendor/autoload.php';
 if (!is_readable($loaderPath)) {
     throw new LogicException('Run php composer.phar install at first');
 }
-$loader = require $loaderPath;
+require $loaderPath;
 
 use \ModernPdf\FileBuilder;
 use \ModernPdf\Builder\StreamBuilder;

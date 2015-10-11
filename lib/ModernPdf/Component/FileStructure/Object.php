@@ -25,7 +25,7 @@ class Object
      * @param integer $objectNumber     The object number.
      * @param integer $generationNumber The generation number.
      */
-    public function __construct($objectNumber, $generationNumber = 0, &$baseType = null)
+    public function __construct($objectNumber, $generationNumber = 0, $baseType = null)
     {
         $this->generationNumber = $generationNumber;
         $this->objectNumber = $objectNumber;
