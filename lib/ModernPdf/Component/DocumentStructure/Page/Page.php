@@ -16,13 +16,16 @@ use \ModernPdf\Component\ObjectType;
  */
 class Page extends ObjectType\PdfDictionary
 {
+    const SIZE_A3 = [0, 0, 842, 1190];
+    const SIZE_A4 = [0, 0, 595, 842];
+    const SIZE_A5 = [0, 0, 420, 595];
 
     public function __construct($values = array())
     {
         parent::__construct($values);
         $this['Contents'] = new ObjectType\PdfArray();
         $this['Annots'] = new ObjectType\PdfArray();
-        $this['MediaBox'] = new ObjectType\PdfArray(array(0, 0, 612, 792));
+        $this['MediaBox'] = new ObjectType\PdfArray(self::SIZE_A4);
         $this['Type'] = new ObjectType\PdfName('Page');
     }
 

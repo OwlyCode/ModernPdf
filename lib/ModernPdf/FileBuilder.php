@@ -11,18 +11,26 @@
 
 namespace ModernPdf;
 
+use ModernPdf\Component\FileStructure\File;
+
 /**
  * The FileBuilder class, responsible of building the pdf tree.
  */
 class FileBuilder
 {
+    /**
+     * @var File
+     */
     protected $file;
 
     public function __construct()
     {
-        $this->file = new \ModernPdf\Component\FileStructure\File();
+        $this->file = new File();
     }
 
+    /**
+     * @return File
+     */
     public function getFile()
     {
         return $this->file;

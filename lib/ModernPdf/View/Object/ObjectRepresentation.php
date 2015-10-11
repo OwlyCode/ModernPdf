@@ -11,15 +11,26 @@
 
 namespace ModernPdf\View\Object;
 
+use ModernPdf\Component\FileStructure\Object;
+
 class ObjectRepresentation
 {
+    /**
+     * @var Object
+     */
     protected $object;
 
-    public function __construct(\ModernPdf\Component\FileStructure\Object $object)
+    /**
+     * @param Object $object
+     */
+    public function __construct(Object $object)
     {
         $this->object = $object;
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         $objectNumber = $this->object->getObjectNumber();

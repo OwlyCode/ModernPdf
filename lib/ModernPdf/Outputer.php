@@ -11,21 +11,23 @@
 
 namespace ModernPdf;
 
+use ModernPdf\Component\FileStructure\File;
+use ModernPdf\View\FileRepresentation;
+
 /**
  * The Outputer class, responsible of the output of the pdf.
  */
 class Outputer
 {
-
-    protected $file;
-
-    public function __construct()
+    /**
+     * @param File $file
+     *
+     * @return string
+     */
+    public function output(File $file)
     {
-    }
+        $view = new FileRepresentation($file);
 
-    public function output(\ModernPdf\Component\FileStructure\File $file)
-    {
-        $view = new \ModernPdf\View\FileRepresentation($file);
         return $view->render();
     }
 }

@@ -12,12 +12,13 @@ namespace ModernPdf\View;
 
 class CrossReferenceGenerator
 {
-    public function __construct()
-    {
-
-    }
-
-    public function generate($objects, $byteOffset = 0)
+    /**
+     * @param Object[] $objects
+     * @param integer  $byteOffset
+     *
+     * @return string
+     */
+    public function generate(array $objects, $byteOffset = 0)
     {
         $crossReferenceTable  = "xref\n";
         $crossReferenceTable .= "0 ".(count($objects)+1)."\r\n";
