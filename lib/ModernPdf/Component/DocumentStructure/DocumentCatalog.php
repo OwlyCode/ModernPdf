@@ -34,20 +34,30 @@ class DocumentCatalog extends ObjectType\PdfConstrainedDictionary
                 'field'       => 'Pages',
                 'description' => 'The indirect reference to the page tree.',
                 'type'        => 'IndirectReference',
+                'version'     => '1.0',
             ],
             'Metadata' => [
                 'description' => 'The indirect reference to the metadata.',
                 'type'        => 'IndirectReference',
+                'version'     => '1.4',
             ],
             'MarkInfo' => [
                 'type'        => 'Dictionary',
             ],
             'OutputIntents' => [
                 'type'        => 'Array',
+                'description' => ' An array of output intent dictionaries describing the color characteristics of output devices on which the document might be rendered',
+                'version'     => '1.4',
             ],
             'Outlines' => [
                 'description' => 'The outlines indirect reference.',
                 'type'        => 'IndirectReference',
+                'version'     => '1.0',
+            ],
+            'Version' => [
+                'description' => 'The version of the pdf.',
+                'type'        => 'Name',
+                'version'     => '1.4',
             ],
         ];
     }
