@@ -14,7 +14,7 @@ What's inside :
  * PDF\A-1a
  * PDF\A-1b
 * Low Level file Structure
- * Objects (Strings, Dates, Names, Arrays, Dictionaries, Indirect References)
+ * Objects (Strings, Hex Strings, Dates, Names, Arrays, Dictionaries, Indirect References)
  * Streams
 * Low level document structure
  * Trailer dictionary
@@ -35,9 +35,9 @@ What's inside :
  * DocumentInfo dictionary
  * XMP metadata stream
 * Outlines
- * Annotations
+ * PDF 1.0 Annotations
   * Text
-  * Hyperlink
+  * Link
 
 What's not inside at the moment:
 --------------------------------
@@ -46,7 +46,6 @@ A quick and quite raw list of non implemented features that **shall be implement
 in the future days.
 
 * Low level support
- * HexStrings (<> enclosed strings)
  * Document modification. It **will be** surely **included on the first release**.
  * Filters
  * Incremental updates
@@ -55,8 +54,7 @@ in the future days.
  * Shadings and patterns
  * form XObjects
  * Type0, MMType1, Type3 and CID fonts
- * Annotations
-  * File
+ * PDF 1.1+ Annotations
  * Encrypted documents
  * Image XObjects (Png, tiff, gif, bmp)
  * DocumentCatalog /Dests entry.

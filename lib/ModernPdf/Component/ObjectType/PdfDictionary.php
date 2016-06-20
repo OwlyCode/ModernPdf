@@ -9,7 +9,7 @@
 
 namespace ModernPdf\Component\ObjectType;
 
-class PdfDictionary implements \ArrayAccess
+class PdfDictionary implements \ArrayAccess, PdfTypeInterface
 {
     protected $values;
 

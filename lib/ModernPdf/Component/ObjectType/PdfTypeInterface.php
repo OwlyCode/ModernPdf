@@ -9,17 +9,6 @@
 
 namespace ModernPdf\Component\ObjectType;
 
-class PdfString implements PdfTypeInterface
+interface PdfTypeInterface
 {
-    protected $value;
-
-    public function __construct($value)
-    {
-        $this->value = $value;
-    }
-
-    public function __toString()
-    {
-        return '('.$this->value.')';
-    }
 }

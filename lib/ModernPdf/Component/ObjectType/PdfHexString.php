@@ -9,7 +9,7 @@
 
 namespace ModernPdf\Component\ObjectType;
 
-class PdfHexString
+class PdfHexString implements PdfTypeInterface
 {
     protected $value;
 

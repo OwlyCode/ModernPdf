@@ -12,7 +12,7 @@
     "homepage": "http://github.com/OwlyCode/ModernPdf",
     "license": "MIT",
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.0",
         "ext-gd": "*",
         "psr/log": "~1.0",
         "easyrdf/easyrdf": "~0.9",

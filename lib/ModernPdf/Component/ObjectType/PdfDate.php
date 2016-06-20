@@ -1,13 +1,13 @@
 <?php
 /**
  * @category Model
- * @package  ModernPdf\Component\DataStructure
+ * @package  ModernPdf\Component\ObjectType
  * @author   Tristan Maindron <contact@owly-code.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @link     http://github.com/OwlyCode/ModernPdf
  */
 
-namespace ModernPdf\Component\DataStructure;
+namespace ModernPdf\Component\ObjectType;
 
 class PdfDate
 {

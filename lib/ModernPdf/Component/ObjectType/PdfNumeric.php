@@ -9,7 +9,7 @@
 
 namespace ModernPdf\Component\ObjectType;
 
-class PdfNumeric
+class PdfNumeric implements PdfTypeInterface
 {
     protected $value;
 
@@ -20,6 +20,6 @@ class PdfNumeric
 
     public function __toString()
     {
-        return $this->value;
+        return (string)$this->value;
     }
 }

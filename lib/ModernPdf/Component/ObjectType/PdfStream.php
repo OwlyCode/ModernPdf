@@ -12,9 +12,10 @@ namespace ModernPdf\Component\ObjectType;
 /**
  * Represents a graphic stream.
  */
-class PdfStream
+class PdfStream implements PdfTypeInterface
 {
     protected $data = array();
+
     protected $dictionary;
 
     /**

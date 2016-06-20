@@ -9,7 +9,7 @@
 
 namespace ModernPdf\Component\ObjectType;
 
-class PdfBoolean
+class PdfBoolean implements PdfTypeInterface
 {
     protected $value;
 

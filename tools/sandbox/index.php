@@ -13,19 +13,18 @@ if (!is_readable($loaderPath)) {
 }
 require $loaderPath;
 
-use \ModernPdf\FileBuilder;
-use \ModernPdf\Builder\StreamBuilder;
-use \ModernPdf\Builder\ImageBuilder;
+use ModernPdf\Component\ObjectType\PdfDate;
+use ModernPdf\Component\ObjectType\PdfDestination;
+use ModernPdf\Component\ObjectType\PdfStream;
 use \ModernPdf\Builder\IccBuilder;
+use \ModernPdf\Builder\ImageBuilder;
+use \ModernPdf\Builder\StreamBuilder;
 use \ModernPdf\Builder\TrueTypeBuilder;
-
-use \ModernPdf\Outputer;
-
 use \ModernPdf\Component\ContentStream;
-use \ModernPdf\Component\FileStructure;
 use \ModernPdf\Component\DocumentStructure;
-use \ModernPdf\Component\DataStructure;
-use \ModernPdf\Component\ObjectType;
+use \ModernPdf\Component\FileStructure;
+use \ModernPdf\FileBuilder;
+use \ModernPdf\Outputer;
 
 $builder  = new FileBuilder();
 
@@ -44,8 +43,8 @@ $pagetreeData = new DocumentStructure\Page\PageTree();
 $pagetree = new FileStructure\Object(1, 0, $pagetreeData);
 $pageData = new DocumentStructure\Page\Page();
 $page = new FileStructure\Object(2, 0, $pageData);
-$pagetreeData->addKid(new ObjectType\PdfIndirectReference($page));
-$pageData->setParent(new ObjectType\PdfIndirectReference($pagetree));
+$pagetreeData->addKid($page);
+$pageData->setParent($pagetree);
 
 $iccBuilder = new IccBuilder();
 $iccBuilder->loadFile(__DIR__ . '/AdobeRGB1998.icc');
@@ -53,54 +52,61 @@ $iccBuilder->loadFile(__DIR__ . '/AdobeRGB1998.icc');
 $iccProfile = new FileStructure\Object(9, 0, $iccBuilder->build());
 
 $outputIntentData = new DocumentStructure\OutputIntent();
-$outputIntentData->setSubType(new ObjectType\PdfName('GTS_PDFA1'));
-$outputIntentData->setOutputConditionIdentifier(new ObjectType\PdfString('sRGB v4'));
-$outputIntentData->setRegistryName(new ObjectType\PdfString('http://www.color.org/'));
-$outputIntentData->setDestOutputProfile(new ObjectType\PdfIndirectReference($iccProfile));
+$outputIntentData->setSubType('GTS_PDFA1');
+$outputIntentData->setOutputConditionIdentifier('sRGB v4');
+$outputIntentData->setRegistryName('http://www.color.org/');
+$outputIntentData->setDestOutputProfile($iccProfile);
 $outputIntent = new FileStructure\Object(10, 0, $outputIntentData);
 
 $imageBuilder = new ImageBuilder();
 $imageBuilder->loadFile(__DIR__ . '/modern.jpg');
 
-
 $image = new FileStructure\Object(7, 0, $imageBuilder->build());
 
 $resourceData = new ContentStream\Resource();
-$resourceData->addFont("F0", new ObjectType\PdfIndirectReference($font));
-$resourceData->addImage("X2", new ObjectType\PdfIndirectReference($image));
+$resourceData->addFont("F0", $font);
+$resourceData->addImage("X2", $image);
 $resource = new FileStructure\Object(3, 0, $resourceData);
 
-$pageData->setResource(new ObjectType\PdfIndirectReference($resource));
+$pageData->setResource($resource);
 
-$contentData = new ObjectType\PdfStream();
+$contentData = new PdfStream();
 $streamBuilder = new StreamBuilder($contentData);
 $content = new FileStructure\Object(4, 0, $contentData);
 
-$streamBuilder->getStateWriter()
+$streamBuilder
+    ->getStateWriter()
     ->saveGraphicState()
     ->addTranslation(0, 732)
-    ->addScaling(211, 54);
+    ->addScaling(211, 54)
+;
 
-$streamBuilder->getPathWriter()
-    ->image(new ObjectType\PdfName('X2'));
+$streamBuilder
+    ->getPathWriter()
+    ->image('X2')
+;
 
-$streamBuilder->getStateWriter()
+$streamBuilder
+    ->getStateWriter()
     ->restoreGraphicState()
-    ->addTranslation(251, 768);
+    ->addTranslation(251, 768)
+;
 
-$streamBuilder->getTextWriter()
+$streamBuilder
+    ->getTextWriter()
     ->openTextSection()
-    ->setFont(new ObjectType\PdfName('F0'), 26)
+    ->setFont('F0', 26)
     ->setLeading(36)
     ->setRenderingMode(StreamBuilder::RENDERING_MODE_STROKE)
-    ->printLnText(new ObjectType\PdfString('Hello, World, this is so cool !'))
-    ->printText(new ObjectType\PdfString('This is a new line.'))
-    ->closeTextSection();
+    ->printLnText('Hello, World, this is so cool !')
+    ->printText('This is a new line.')
+    ->closeTextSection()
+;
 
 
-$pageData->addContent(new ObjectType\PdfIndirectReference($content));
+$pageData->addContent($content);
 
-$creationDate = new DataStructure\PdfDate(new \DateTime('NOW'));
+$creationDate = new PdfDate(new \DateTime('NOW'));
 
 $metadataData = new ContentStream\XmpMetadata();
 $metadataData->addMetadata('dc:creator', array('ModernPdf'), 'rdf:Seq');
@@ -112,38 +118,36 @@ $metadata = new FileStructure\Object(8, 0, $metadataData);
 
 $infosData = new DocumentStructure\Metadata\DocumentInformation();
 $infosData->setCreationDate($creationDate);
-$infosData->setCreator(new ObjectType\PdfString('ModernPdf'));
+$infosData->setCreator('ModernPdf');
 $infos = new FileStructure\Object(6, 0, $infosData);
 
 $catalogData = new DocumentStructure\DocumentCatalog();
-$catalogData->setPageTree(new ObjectType\PdfIndirectReference($pagetree));
-$catalogData->setMetadata(new ObjectType\PdfIndirectReference($metadata));
-$catalogData->setMarkInfo(true);
-$catalogData->addOutputIntent(new ObjectType\PdfIndirectReference($outputIntent));
+$catalogData->setPageTree($pagetree);
+$catalogData->setMetadata($metadata);
+$catalogData->mark(true);
+$catalogData->addOutputIntent($outputIntent);
 $catalog = new FileStructure\Object(5, 0, $catalogData);
 
-$dest = new DataStructure\PdfDestination();
-$dest->setFit(new ObjectType\PdfIndirectReference($page));
-
 $outlineDictionaryData = new DocumentStructure\Outline\OutlineDictionary();
-$outlineDictionaryData->setTitle(new ObjectType\PdfString("The first page."));
+$outlineDictionaryData->setTitle("The first page.");
 $outlineDictionaryData->setCount(0);
-$outlineDictionaryData->setDest($dest);
+$outlineDictionaryData->setDest(PdfDestination::fromFit($page));
 $outlineDictionary = new FileStructure\Object(17, 0, $outlineDictionaryData);
 
 $outlinesData = new DocumentStructure\Outline\Outlines();
-$outlinesData->setFirst(new ObjectType\PdfIndirectReference($outlineDictionary));
-$outlinesData->setLast(new ObjectType\PdfIndirectReference($outlineDictionary));
+$outlinesData->setFirst($outlineDictionary);
+$outlinesData->setLast($outlineDictionary);
 $outlinesData->setCount(1);
 $outlines = new FileStructure\Object(16, 0, $outlinesData);
-$outlineDictionaryData->setParent(new ObjectType\PdfIndirectReference($outlines));
-$catalogData->setOutlines(new ObjectType\PdfIndirectReference($outlines));
+$outlineDictionaryData->setParent($outlines);
+$catalogData->setOutlines($outlines);
 
 $textAnnotationData = new DocumentStructure\Annotation\TextAnnotation();
-$textAnnotationData->setContents(new ObjectType\PdfString('This is an annotation.'));
-$textAnnotationData->setRect(new ObjectType\PdfArray(array(0, 700, 800, 800)));
-$textAnnotation = new FileStructure\Object(18, 0, $outlinesData);
-$pageData->addAnnot(new ObjectType\PdfIndirectReference($textAnnotation));
+$textAnnotationData->setContent('This is an annotation.');
+$textAnnotationData->setRect([0, 700, 800, 800]);
+$textAnnotationData->setTextLabel("Lol");
+$textAnnotation = new FileStructure\Object(18, 0, $textAnnotationData);
+$pageData->addAnnot($textAnnotation);
 
 $file->addObject($pagetree);
 $file->addObject($page);

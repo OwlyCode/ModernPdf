@@ -9,7 +9,9 @@
 
 namespace ModernPdf\Component\ContentStream;
 
+use ModernPdf\Component\FileStructure\Object;
 use ModernPdf\Component\ObjectType;
+use ModernPdf\Component\ObjectType\PdfIndirectReference;
 
 /**
  * Represents a resource dictionary.
@@ -37,22 +39,26 @@ class Resource extends ObjectType\PdfDictionary
     /**
      * Adds a font to the dictionary.
      *
-     * @param string    $name The name the font will be identified with.
-     * @param Font\Font $font The font object.
+     * @param string                      $name The name the font will be identified with.
+     * @param PdfIndirectReference|Object $font The font object.
      */
-    public function addFont($name, ObjectType\PdfIndirectReference $font)
+    public function addFont($name, $font)
     {
+        $font = $font instanceof PdfIndirectReference ? $font : new PdfIndirectReference($font);
+
         $this['Font'][$name] = $font;
     }
 
     /**
      * Adds an image to the dictionary.
      *
-     * @param [type]                    $name  The name the image will be identified with.
-     * @param ObjectType\PdfIndirectReference $image The image object indirect reference.
+     * @param string                      $name  The name the image will be identified with.
+     * @param PdfIndirectReference|Object $image The image object indirect reference.
      */
-    public function addImage($name, ObjectType\PdfIndirectReference $image)
+    public function addImage($name, $image)
     {
+        $image = $image instanceof PdfIndirectReference ? $image : new PdfIndirectReference($image);
+
         $this['XObject'][$name] = $image;
     }
 }

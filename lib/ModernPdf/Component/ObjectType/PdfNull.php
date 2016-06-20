@@ -9,12 +9,8 @@
 
 namespace ModernPdf\Component\ObjectType;
 
-class PdfName
+class PdfName implements PdfTypeInterface
 {
-    public function __construct()
-    {
-    }
-
     public function __toString()
     {
         return "null";

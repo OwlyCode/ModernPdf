@@ -11,7 +11,7 @@ namespace ModernPdf\Component\ObjectType;
 
 use ModernPdf\Component\FileStructure;
 
-class PdfIndirectReference
+class PdfIndirectReference implements PdfTypeInterface
 {
     protected $value;
 

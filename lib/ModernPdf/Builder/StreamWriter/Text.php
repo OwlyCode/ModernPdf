@@ -12,7 +12,7 @@
 
 namespace ModernPdf\Builder\StreamWriter;
 
-use \ModernPdf\Component\ObjectType as Type;
+use ModernPdf\Component\ObjectType as Type;
 
 class Text
 {
@@ -26,12 +26,15 @@ class Text
     /**
      * Sets the font for the oncoming writed text on the stream.
      *
-     * @param Type\PdfName $name The name of the font, as stored in the resource.
+     * @param Type\PdfName|string $name The name of the font, as stored in the resource.
      * @param integer      $size The font size in points.
      */
-    public function setFont(Type\PdfName $name, $size)
+    public function setFont($name, $size)
     {
+        $name = $name instanceof Type\PdfName ? $name : new Type\PdfName($name);
+
         $this->stream->push($name . " " . $size . " Tf");
+
         return $this;
     }
 
@@ -42,7 +45,8 @@ class Text
      */
     public function setLeading($points)
     {
-         $this->stream->push($points . " TL");
+        $this->stream->push($points . " TL");
+
         return $this;
     }
 
@@ -53,7 +57,8 @@ class Text
      */
     public function setCharacterSpacing($points)
     {
-         $this->stream->push($points . " Tc");
+        $this->stream->push($points . " Tc");
+
         return $this;
     }
 
@@ -64,7 +69,8 @@ class Text
      */
     public function setWordSpacing($points)
     {
-         $this->stream->push($points . " Tw");
+        $this->stream->push($points . " Tw");
+
         return $this;
     }
 
@@ -75,7 +81,8 @@ class Text
      */
     public function setHorizontalSpacing($points)
     {
-         $this->stream->push($points . " Tz");
+        $this->stream->push($points . " Tz");
+
         return $this;
     }
 
@@ -86,7 +93,8 @@ class Text
      */
     public function setRise($points)
     {
-         $this->stream->push($points . " Ts");
+        $this->stream->push($points . " Ts");
+
         return $this;
     }
 
@@ -98,7 +106,8 @@ class Text
      */
     public function setRenderingMode($mode)
     {
-         $this->stream->push($mode . " Tr");
+        $this->stream->push($mode . " Tr");
+
         return $this;
     }
 
@@ -108,6 +117,7 @@ class Text
     public function openTextSection()
     {
         $this->stream->push("BT");
+
         return $this;
     }
 
@@ -117,28 +127,35 @@ class Text
     public function closeTextSection()
     {
         $this->stream->push("ET");
+
         return $this;
     }
 
     /**
      * Prints some text on a line, WITHOUT new line.
      *
-     * @param  Type\PdfString $text The text to print.
+     * @param Type\PdfString|string $text The text to print.
      */
-    public function printText(Type\PdfString $text)
+    public function printText($text)
     {
-         $this->stream->push($text.' Tj');
+        $text = $text instanceof Type\PdfString ? $text : new Type\PdfString($text);
+
+        $this->stream->push($text.' Tj');
+
         return $this;
     }
 
     /**
      * Prints some text on a line, WITH new line.
      *
-     * @param  Type\PdfString $text The text to print.
+     * @param Type\PdfString|string $text The text to print.
      */
-    public function printLnText(Type\PdfString $text)
+    public function printLnText($text)
     {
-         $this->stream->push($text.' Tj T*');
+        $text = $text instanceof Type\PdfString ? $text : new Type\PdfString($text);
+
+        $this->stream->push($text.' Tj T*');
+
         return $this;
     }
 

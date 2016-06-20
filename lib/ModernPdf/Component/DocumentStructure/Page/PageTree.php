@@ -10,58 +10,49 @@
 namespace ModernPdf\Component\DocumentStructure\Page;
 
 use \ModernPdf\Component\ObjectType;
+use \ModernPdf\Component\FileStructure;
 
 /**
  * Represents a PageTree which can hold pages.
  */
-class PageTree extends ObjectType\PdfDictionary
+class PageTree extends ObjectType\PdfConstrainedDictionary
 {
-
     public function __construct($values = array())
     {
         parent::__construct($values);
+
         $this['Kids'] = new ObjectType\PdfArray();
         $this['Type'] = new ObjectType\PdfName('Pages');
     }
 
-    /**
-     * Returns the parent PageTree indirect reference.
-     *
-     * @return ObjectType\PdfIndirectReference The parent indirect reference.
-     */
-    public function getParent()
+    protected function getMapping()
     {
-        return $this['Parent'];
-    }
-
-    /**
-     * Sets the parent PageTree indirect reference.
-     *
-     * @param ObjectType\PdfIndirectReference $parent The parent indirect reference.
-     */
-    public function setParent(ObjectType\PdfIndirectReference $parent)
-    {
-        return $this['Parent'] = $parent;
-    }
-
-    /**
-     * Return the PdfArray containing the indirect references to this PageTree kid pages.
-     *
-     * @return ObjectType\PdfArray The array of indirect references.
-     */
-    public function getKids()
-    {
-        return $this['Kids'];
+        return [
+            'Kids' => [
+                'description' => 'The array containing the indirect references to this PageTree kid pages.',
+                'type'        => 'Array',
+            ],
+            'Parent' => [
+                'description' => 'The parent indirect reference.',
+                'type'        => 'IndirectReference',
+            ],
+            'Count' => [
+                'description' => 'The kid count.',
+                'type'        => 'Numeric',
+            ],
+        ];
     }
 
     /**
      * Adds a page indirect reference to the pagetree.
      *
-     * @param ObjectType\PdfIndirectReference $kid The page indirect reference.
+     * @param ObjectType\PdfIndirectReference|FileStructure\Object $kid The page indirect reference.
      */
-    public function addKid(ObjectType\PdfIndirectReference $kid)
+    public function addKid($kid)
     {
+        $kid = $kid instanceof ObjectType\PdfIndirectReference ? $kid : new ObjectType\PdfIndirectReference($kid);
+
         $this['Kids'][] = $kid;
-        $this['Count'] = count($this->getKids());
+        $this['Count']  = count($this->getKids());
     }
 }

@@ -9,7 +9,7 @@
 
 namespace ModernPdf\Component\ObjectType;
 
-class PdfArray implements \ArrayAccess, \Countable
+class PdfArray implements \ArrayAccess, \Countable, PdfTypeInterface
 {
     protected $values;
 

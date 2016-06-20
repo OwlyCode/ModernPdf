@@ -9,7 +9,7 @@
 
 namespace ModernPdf\Component\ObjectType;
 
-class PdfName
+class PdfName implements PdfTypeInterface
 {
     protected $value;
 

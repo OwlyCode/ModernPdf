@@ -64,8 +64,13 @@ class Path
         return $this;
     }
 
-    public function image(ObjectType\PdfName $image)
+    /**
+     * @param ObjectType\PdfName|string $image
+     */
+    public function image($image)
     {
+        $image = $image instanceof ObjectType\PdfName ? $image : new ObjectType\PdfName($image);
+
         $this->stream->push($image . ' Do');
     }
 

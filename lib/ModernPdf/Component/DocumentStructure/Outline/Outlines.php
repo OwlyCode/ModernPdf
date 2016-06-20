@@ -14,71 +14,30 @@ use \ModernPdf\Component\ObjectType;
 /**
  * Represents a Outlines.
  */
-class Outlines extends ObjectType\PdfDictionary
+class Outlines extends ObjectType\PdfConstrainedDictionary
 {
+    protected function getMapping()
+    {
+        return [
+            'First' => [
+                'description' => 'The first outline dictionary.',
+                'type'        => 'IndirectReference',
+            ],
+            'Last' => [
+                'description' => 'The last outline indirect reference.',
+                'type'        => 'IndirectReference',
+            ],
+            'Count' => [
+                'description' => 'the total count of outlines',
+                'type'        => 'Numeric',
+            ],
+        ];
+    }
+
     public function __construct($values = array())
     {
         parent::__construct($values);
+
         $this['Type'] = new ObjectType\PdfName('Outlines');
-    }
-
-    /**
-     * Returns the first outline dictionary.
-     *
-     * @return ObjectType\PdfIndirectReference The first outline indirect reference.
-     */
-    public function getFirst()
-    {
-        return $this['First'];
-    }
-
-    /**
-     * Sets the first outline dictionary.
-     *
-     * @param ObjectType\PdfIndirectReference $first The first outline indirect reference.
-     */
-    public function setFirst(ObjectType\PdfIndirectReference $first)
-    {
-        return $this['First'] = $first;
-    }
-
-    /**
-     * Returns the last outline dictionary.
-     *
-     * @return ObjectType\PdfIndirectReference The last outline indirect reference.
-     */
-    public function getLast()
-    {
-        return $this['Last'];
-    }
-
-    /**
-     * Sets the last outline dictionary.
-     *
-     * @param ObjectType\PdfIndirectReference $last The last outline indirect reference.
-     */
-    public function setLast(ObjectType\PdfIndirectReference $last)
-    {
-        return $this['Last'] = $last;
-    }
-
-    /**
-     * Returns the total count of outlines.
-     *
-     * @return integer The count.
-     */
-    public function getCount()
-    {
-        return $this['Count'];
-    }
-
-    /**
-     * Sets the total count of outlines.
-     *
-     * @param integer The count.
-     */
-    public function setCount($count)
-    {
-        return $this['Count'] = $count;
     }
 }

@@ -22,6 +22,7 @@ abstract class XObject extends ObjectType\PdfStream
     public function __construct($values = array())
     {
         parent::__construct($values);
+
         $this->dictionary['Type'] = new ObjectType\PdfName('XObject');
     }
 }
