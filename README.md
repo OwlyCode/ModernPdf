@@ -73,8 +73,6 @@ Todo before it's usable :
 
 * Code cleaning
  * DataStructure/Rectangle.
- * DataStructure/NameTree.
- * DataStructure/NumberTree.
 * Tests
 * Documentation
 * High level API
